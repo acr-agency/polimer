@@ -186,6 +186,7 @@ export default function PopupForm({ onClose }: Props) {
         phone: values.phone.trim(),
         message: values.message.trim(),
         topic: "Заявка из popup-формы",
+        pageUrl: window.location.href
       };
 
       const response = await fetch("/api/send-form", {
@@ -333,7 +334,7 @@ export default function PopupForm({ onClose }: Props) {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          Правилами обработки персональных данных *
+                          Правилами обработки персональных данных
                         </a>
                       </span>
                     </label>

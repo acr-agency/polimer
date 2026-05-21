@@ -64,7 +64,7 @@ export default function Hero() {
               fetchPriority="high"
               sizes="100vw"
               style={{ objectFit: 'cover', objectPosition: 'center' }}
-              quality={85}
+              quality={70}
             />
           </picture>
           <div className={s.heroOverlay}></div>

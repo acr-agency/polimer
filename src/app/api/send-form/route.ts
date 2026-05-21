@@ -8,8 +8,8 @@ const smtpConfig = {
   port: 465,
   secure: true,
   auth: {
-    user: process.env.SMTP_USER, // Измените на правильный email
-    pass: process.env.SMTP_PASS, // Нужно указать правильный пароль!
+    user: "ForAnalyticss@yandex.ru", // Измените на правильный email
+    pass: "mrsezovxgogmbqfz", // Нужно указать правильный пароль!
   },
 };
 
@@ -17,7 +17,7 @@ const smtpConfig = {
 const transporter = nodemailer.createTransport(smtpConfig);
 
 // Проверяем соединение при старте
-transporter.verify(function(error, success) {
+transporter.verify(function (error, success) {
   if (error) {
     console.error('❌ Ошибка подключения к SMTP:', error);
   } else {
@@ -42,7 +42,7 @@ function createEmailHTML(data: {
 }): string {
   const currentDate = new Date().toLocaleString('ru-RU');
   const formType = data.topic || (data.message ? 'Полная форма' : 'Быстрая форма');
-  
+
   return `
     <!DOCTYPE html>
     <html lang="ru">
@@ -113,14 +113,14 @@ function createEmailHTML(data: {
 
 export async function POST(request: NextRequest) {
   console.log('📨 Получен POST запрос на /api/send-form');
-  
+
   try {
     // Получаем данные из запроса
     const body = await request.json();
     const { name, phone, message, topic } = body;
-    
+
     console.log('📝 Данные формы:', { name, phone, message, topic });
-    
+
     // Проверяем обязательные поля
     if (!phone) {
       console.log('❌ Ошибка: телефон не указан');
@@ -129,16 +129,16 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
-    
+
     // Определяем тему письма
     const dateTime = new Date().toLocaleString('ru-RU');
     const subject = `Заявка на сайте от ${dateTime}`;
-    
+
     // Создаем HTML письма
     const html = createEmailHTML({ name, phone, message, topic });
-    
+
     console.log('📧 Отправка письма на 73polimer@mail.ru...');
-    
+
     // Отправляем письмо основному получателю
     const mainResult = await transporter.sendMail({
       from: '"Аналитический центр развитие" <ForAnalyticss@yandex.ru>',
@@ -146,9 +146,9 @@ export async function POST(request: NextRequest) {
       subject: subject,
       html: html,
     });
-    
+
     console.log('✅ Письмо отправлено основному получателю:', mainResult.messageId);
-    
+
     // Отправляем копию
     console.log('📧 Отправка копии на ForAnalyticss@yandex.ru...');
     const copyResult = await transporter.sendMail({
@@ -157,17 +157,17 @@ export async function POST(request: NextRequest) {
       subject: subject,
       html: html,
     });
-    
+
     console.log('✅ Копия отправлена:', copyResult.messageId);
-    
-    return NextResponse.json({ 
-      success: true, 
-      message: 'Форма успешно отправлена' 
+
+    return NextResponse.json({
+      success: true,
+      message: 'Форма успешно отправлена'
     });
-    
+
   } catch (error: any) {
     console.error('❌ Критическая ошибка при отправке:', error);
-    
+
     // Детальный вывод ошибки
     const errorDetails = {
       message: error.message,
@@ -176,13 +176,13 @@ export async function POST(request: NextRequest) {
       response: error.response,
       responseCode: error.responseCode,
     };
-    
+
     console.error('Детали ошибки:', errorDetails);
-    
+
     return NextResponse.json(
-      { 
-        error: 'Ошибка отправки письма', 
-        details: error.message 
+      {
+        error: 'Ошибка отправки письма',
+        details: error.message
       },
       { status: 500 }
     );
@@ -200,3 +200,6 @@ export async function OPTIONS() {
     },
   });
 }
+
+
+

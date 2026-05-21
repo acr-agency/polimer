@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import s from "./AboutCard.module.css";
 import { AboutItem } from "@/types/about";
+import { LocalizedLink } from "@/components/ui/LocalizedLink";
 
 type AboutCardProps = {
     item: AboutItem
@@ -132,9 +133,9 @@ export default function AboutCard({ item, isActive, onMouseEnter }: AboutCardPro
     // Если есть href - оборачиваем в Link
     if (item.href) {
         return (
-            <Link href={item.href} style={{ textDecoration: 'none', display: 'block' }}>
+            <LocalizedLink href={item.href} style={{ textDecoration: 'none', display: 'block' }}>
                 {cardElement}
-            </Link>
+            </LocalizedLink>
         );
     }
 

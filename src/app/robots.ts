@@ -1,8 +1,8 @@
 import type { MetadataRoute } from "next";
-import { getSiteContext } from "@/lib/getSiteContext";
+import { ROOT_DOMAIN_UNICODE } from "@/types/cities";
 
-export default async function robots(): Promise<MetadataRoute.Robots> {
-  const { baseUrl } = await getSiteContext();
+export default function robots(): MetadataRoute.Robots {
+  const baseUrl = `https://${ROOT_DOMAIN_UNICODE}`;
 
   return {
     rules: {

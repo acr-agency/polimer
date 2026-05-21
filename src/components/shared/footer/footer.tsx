@@ -1,6 +1,7 @@
 import Image from "next/image";
 import s from "./style.module.css";
 import { JSX } from "react";
+import { LocalizedLink } from "@/components/ui/LocalizedLink";
 
 type NavLink = {
   href: string;
@@ -51,6 +52,11 @@ export default function Footer(): JSX.Element {
       id: "5",
       slug: "luk-t",
       title: "Люк канализационный полимерпесчаный «Т»",
+    },
+     {
+      id: "9",
+      slug: "luk-tm",
+      title: "Люк канализационный полимерпесчаный  «ТМ»",
     },
     {
       id: "7",
@@ -123,7 +129,7 @@ export default function Footer(): JSX.Element {
       <div className="container">
         <div className={s.footerContent}>
           <div>
-            <a
+            <LocalizedLink
               href="/"
               className={s.footerLogo + " flex-center"}
               itemProp="url"
@@ -135,7 +141,7 @@ export default function Footer(): JSX.Element {
                 height={36}
                 itemProp="logo"
               />
-            </a>
+            </LocalizedLink>
 
             <ul>
               <li className={s.linkSoc}>
@@ -196,9 +202,9 @@ export default function Footer(): JSX.Element {
               <ul className={s.list}>
                 {link.map((e, i) => (
                   <li key={i}>
-                    <a className={s.footerLink + " link"} href={e.href}>
+                    <LocalizedLink className={s.footerLink + " link"} href={e.href}>
                       {e.text}
-                    </a>
+                    </LocalizedLink>
                   </li>
                 ))}
               </ul>
@@ -206,20 +212,20 @@ export default function Footer(): JSX.Element {
             <nav className={s.col} aria-label="Навигация по продукции">
               <ul className={s.list}>
                 <li>
-                  <a className={s.footerLink + " link " + s.siteMapTitle} href="/products">
+                  <LocalizedLink className={s.footerLink + " link " + s.siteMapTitle} href="/products">
                     Каталог полимерпесчаных люков:
-                  </a>
+                  </LocalizedLink>
                 </li>
                 {lukProducts.map((product) => (
                   <li key={product.id}>
                     {product.slug ? (
-                      <a
+                      <LocalizedLink
                         title={product.title}
                         className={s.footerLink + " link"}
                         href={`/products/${product.slug}`}
                       >
                         {product.title}
-                      </a>
+                      </LocalizedLink>
                     ) : (
                       <span className={s.footerLink}>
                         {product.title}
@@ -230,20 +236,20 @@ export default function Footer(): JSX.Element {
               </ul>
               <ul className={s.list}>
                 <li>
-                  <a className={s.footerLink + " link " + s.siteMapTitle} href="/products">
+                  <LocalizedLink className={s.footerLink + " link " + s.siteMapTitle} href="/products">
                     Каталог полимерпесчанной плитки, поребриков, водоотводов:
-                  </a>
+                  </LocalizedLink>
                 </li>
                 {terProd.map((product) => (
                   <li key={product.id}>
                     {product.slug ? (
-                      <a
+                      <LocalizedLink
                         title={product.title}
                         className={s.footerLink + " link"}
                         href={`/products/${product.slug}`}
                       >
                         {product.title}
-                      </a>
+                      </LocalizedLink>
                     ) : (
                       <span className={s.footerLink}>
                         {product.title}
@@ -254,20 +260,20 @@ export default function Footer(): JSX.Element {
               </ul>
               <ul className={s.list}>
                 <li>
-                  <a className={s.footerLink + " link " + s.siteMapTitle} href="/products">
+                  <LocalizedLink className={s.footerLink + " link " + s.siteMapTitle} href="/products">
                     Каталог смотрового колодца:
-                  </a>
+                  </LocalizedLink>
                 </li>
                 {colodecProd.map((product) => (
                   <li key={product.id}>
                     {product.slug ? (
-                      <a
+                      <LocalizedLink
                         title={product.title}
                         className={s.footerLink + " link"}
                         href={`/products/${product.slug}`}
                       >
                         {product.title}
-                      </a>
+                      </LocalizedLink>
                     ) : (
                       <span className={s.footerLink}>
                         {product.title}

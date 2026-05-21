@@ -93,7 +93,7 @@ export default function ProductHero({ product }: Props): JSX.Element {
     <div className={`${s.galleryBottom} ${className ?? ""}`}>
       <Stagger stagger={0.05} delay={0.4} amount={0.2}>
         <div className={s.galleryList} role="list">
-          {imagesSorted.map((img) => (
+          {imagesSorted.length >1 && imagesSorted.map((img) => (
             <StaggerItem key={img.id}>
               <motion.div
                 className={`${s.card} ${img.id === activeImageId ? s.cardActive : ""}`}

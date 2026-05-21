@@ -25,21 +25,9 @@
       "images": [
         {
           "id": "img1",
-          "url": "/img/products/слаг-продукта/1.jpg",
+          "url": "/img/products/kolco-smotrovogo-kolodca/1.webp",
           "alt": "Описание фото",
           "colorId": "black",
-          "sort": 1
-        },
-        {
-          "id": "img2",
-          "url": "/img/products/слаг-продукта/2.jpg",
-          "colorId": "black",
-          "sort": 2
-        },
-        {
-          "id": "img3",
-          "url": "/img/products/слаг-продукта/3.jpg",
-          "colorId": "green",
           "sort": 1
         }
       ]

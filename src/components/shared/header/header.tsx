@@ -5,6 +5,7 @@ import s from "./style.module.scss";
 import { useModal } from "@/components/providers/ModalProvider";
 import { JSX, useEffect, useRef, useState } from "react";
 import ChatPopup from "@/components/ui/ChatPopup/ChatPopup";
+import { LocalizedLink } from "@/components/ui/LocalizedLink";
 
 type NavLink = {
   href: string;
@@ -58,6 +59,11 @@ export default function Header(): JSX.Element {
       id: "5",
       slug: "luk-t",
       title: "Люк тип  «Т»",
+    },
+     {
+      id: "9",
+      slug: "luk-tm",
+      title: "Люк тип  «ТМ»",
     },
     {
       id: "7",
@@ -155,22 +161,22 @@ const colodecProd: Product[] =[
     >
       <div className={"container " + s.headerContent}>
         <div className={s.left}>
-          <a href="/" className={s.headerLogo + " flex-center"}>
+          <LocalizedLink href="/" className={s.headerLogo + " flex-center"}>
             <Image
               src="/logo.png"
               alt='Логотип ООО "Полимерные Технологии"'
               width={176}
               height={36}
             />
-          </a>
+          </LocalizedLink>
 
           <nav className={s.navDesktop}>
             <ul className={s.headerLinkBox}>
               {links.map((e, i) => (
                 <li key={i}>
-                  <a className={s.headerLink} href={e.href}>
+                  <LocalizedLink className={s.headerLink} href={e.href}>
                     {e.text}
-                  </a>
+                  </LocalizedLink>
                 </li>
               ))}
             </ul>
@@ -181,6 +187,7 @@ const colodecProd: Product[] =[
 
         <div className={s.right}>
           <div className={s.actionsDesktop + " flex-center"}>
+            <a className={s.headerLink + " flex-center " + s.headerMail} href="mailto:73polimer@mail.ru">73polimer@mail.ru</a>
             <a
               className={s.headerLink + " flex-center " + s.headerTel}
               href="tel:+78002224309"
@@ -269,6 +276,7 @@ const colodecProd: Product[] =[
         </nav>
 
         <div className={s.mobileActions}>
+          <a className={s.headerLink + "  " + s.headerMail} href="mailto:73polimer@mail.ru">73polimer@mail.ru</a>
           <a className={s.mobileTel} href="tel:+78002224309" onClick={closeMenu}>
             <Image
               src="/icons/tel.svg"

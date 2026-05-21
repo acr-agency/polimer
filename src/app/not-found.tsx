@@ -1,6 +1,6 @@
 // app/not-found.tsx
+import { LocalizedLink } from '@/components/ui/LocalizedLink';
 import { Metadata } from 'next';
-import Link from 'next/link';
 
 export const metadata: Metadata = {
     title: '404 - Страница не найдена',
@@ -21,12 +21,12 @@ export default function NotFound() {
                     <p className="text-gray-500 mb-8">
                         Упс! Мы не смогли найти такую страницу
                     </p>
-                    <Link
+                    <LocalizedLink
                         href="/"
                         className="butt"
                     >
                         Вернуться на главную
-                    </Link>
+                    </LocalizedLink>
                 </div>
             </div>
         </section>

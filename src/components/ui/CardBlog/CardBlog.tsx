@@ -4,6 +4,7 @@ import { truncateText } from "@/utils/text";
 import { a } from "framer-motion/client";
 import Link from "next/link";
 import { BlogCardData } from "@/types/blog";
+import { LocalizedLink } from "../LocalizedLink";
 
 type CardBlogProps = BlogCardData & {
   variant?: 'default' | 'compact'; // на случай разных вариантов отображения
@@ -11,7 +12,7 @@ type CardBlogProps = BlogCardData & {
 
 export default function CardBlog({ title, slug, img, date, excerpt }: CardBlogProps) {
   return (
-   <Link href={`/blog/${slug}`} >
+   <LocalizedLink href={`/blog/${slug}`} >
      <article className={s.card}>
       <div className={s.cardImg}>
         <Image
@@ -28,6 +29,6 @@ export default function CardBlog({ title, slug, img, date, excerpt }: CardBlogPr
 
       <p className={s.cardText}>{truncateText(excerpt, 150)}</p>
     </article>
-   </Link>
+   </LocalizedLink>
   );
 }

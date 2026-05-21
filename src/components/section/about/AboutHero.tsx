@@ -19,6 +19,7 @@ import {
   StaggerItem
 } from "@/components/ui/Motion";
 import s from "./AboutHero.module.css";
+import { LocalizedLink } from "@/components/ui/LocalizedLink";
 
 export default function AboutHero() {
   // Array of slide images
@@ -99,7 +100,7 @@ export default function AboutHero() {
                   whileHover={{ x: 10 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Link href="/about-us" className="link">
+                  <LocalizedLink href="/about-us" className="link">
                     Подробнее
                     <motion.span
                       animate={{ x: [0, 5, 0] }}
@@ -112,7 +113,7 @@ export default function AboutHero() {
                     >
                       →
                     </motion.span>
-                  </Link>
+                  </LocalizedLink>
                 </motion.div>
               </ScaleIn>
             </div>

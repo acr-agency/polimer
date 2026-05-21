@@ -1,5 +1,6 @@
 import Link from "next/link";
 import s from "./BreadCrumbs.module.css";
+import { LocalizedLink } from "../LocalizedLink";
 
 export type Crumb = {
   title: string;
@@ -18,9 +19,9 @@ export default function BreadCrumbs({ items, theme }: Props) {
         <ul className={s.list}>
           {/* Главная всегда первая */}
           <li className={s.item}>
-            <Link href="/" className={`${s.link} ${theme ? s.dark:''}` }>
+            <LocalizedLink href="/" className={`${s.link} ${theme ? s.dark:''}` }>
               Главная
-            </Link>
+            </LocalizedLink>
           </li>
 
           {items.map((crumb, idx) => {
@@ -31,9 +32,9 @@ export default function BreadCrumbs({ items, theme }: Props) {
                 <span className={`${s.separator} ${theme ? s.dark:''}`}>•</span>
 
                 {crumb.href && !isLast ? (
-                  <Link href={crumb.href} className={`${s.link} ${theme ? s.dark:''}` }>
+                  <LocalizedLink href={crumb.href} className={`${s.link} ${theme ? s.dark:''}` }>
                     {crumb.title}
-                  </Link>
+                  </LocalizedLink>
                 ) : (
                   <span  className={`${s.current} ${theme ? s.dark:''}`} aria-current="page">
                     {crumb.title}

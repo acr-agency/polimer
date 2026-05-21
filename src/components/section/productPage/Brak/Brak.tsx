@@ -33,7 +33,7 @@ export default function Brak() {
                     <div className={s.block}>
                         <h3 className={s.subtitle}>Неправильно выбран люк. </h3>
                         <p className={s.text}>
-                            Нагрузка на люк при эксплуотации больше заявленной производителем.
+                            Нагрузка на люк при эксплуатации больше заявленной производителем.
                         </p>
                         <div className={s.sliderWrap}>
                             <Swiper

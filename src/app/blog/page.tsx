@@ -8,7 +8,7 @@ export default function BlogPage() {
 
     return (
         <main style={{background:'var(--temnyy-1)'}}>
-            <HeroPages fon='/img/blog/fon.jpg' title='Блог' h1="НОВОСТИ КОМПАНИИ" />
+            <HeroPages fon='/img/blog/fon.webp' title='Блог' h1="НОВОСТИ КОМПАНИИ" />
             <BlogList/>
         </main>
     )

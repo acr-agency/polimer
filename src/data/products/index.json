@@ -49,6 +49,16 @@
     "categoryId": 1,
     "img": "/img/products/luk-h/1.webp"
   },
+    {
+    "id": "luk-tm",
+    "slug": "luk-tm",
+    "titleShort": "Люк - ТМ  ",
+    "titleFull": "Для дорог, промышленных зон, тяжелого транспорта",
+    "description": "( тяжелый магистральный )",
+    "priceRub": 2400,
+    "categoryId": 1,
+    "img": "/img/products/luk-tm/1.webp"
+  },
   {
     "id": "konus-luk-lm",
     "slug": "konus-luk-lm",
@@ -57,8 +67,8 @@
     "description": " (ПОЛИМЕРНО-ПЕСЧАНЫЙ КОНУС-ЛЮК)",
     "priceRub": 2100,
     "categoryId": 1,
-    "img": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/5.jpg",
-    "imgMob": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/1.jpg"
+    "img": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/5.webp",
+    "imgMob": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/1.webp"
   },
   {
     "id": "luk-c-logotipom",
@@ -118,7 +128,7 @@
     "description": "",
     "priceRub": 1800 ,
     "categoryId": 3,
-    "img": "/img/none.jpg"
+    "img": "/img/products/kolco-smotrovogo-kolodca/prev.webp"
   },
   {
     "id": "dno-smotrovogo-kolodca",

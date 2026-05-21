@@ -7,6 +7,7 @@ import React, { JSX } from "react";
 import s from "./CardProduct.module.css";
 import { ProductListItem } from "@/types/product";
 import { useMedia } from "@/lib/Media";
+import { LocalizedLink } from "../LocalizedLink";
 
 type Props = {
   product: ProductListItem;
@@ -58,9 +59,9 @@ export default function CardProduct({
       style={style}
     >
       {product.slug ? (
-        <Link href={`/products/${product.slug}`} className={s.link}>
+        <LocalizedLink href={`/products/${product.slug}`} className={s.link}>
           {CardInner}
-        </Link>
+        </LocalizedLink>
       ) : (
         <div className={s.link}>{CardInner}</div>
       )}

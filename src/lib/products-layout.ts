@@ -13,8 +13,9 @@ export const productsLayout: Record<number, CategoryLayout> = {
     "luk-l": { x: 3, y: 2, w: 2, h: 1 },
     "13": { x: 5, y: 2, w: 2, h: 1 },
 
-    "luk-c": { x: 1, y: 3, w: 3, h: 1 },
-    "luk-t": { x: 4, y: 3, w: 3, h: 1 },
+    "luk-c": { x: 1, y: 3, w: 2, h: 1 },
+    "luk-t": { x: 3, y: 3, w: 2, h: 1 },
+    "luk-tm": { x: 5, y: 3, w: 2, h: 1 },
 
     "konus-luk-lm": { x: 1, y: 1, w: 6, h: 1 },
     "luk-c-logotipom": { x: 4, y: 4, w: 3, h: 1 },

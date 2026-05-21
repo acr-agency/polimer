@@ -5,6 +5,7 @@ import Contact from "@/components/section/contact/contact";
 import Hero from "@/components/section/hero/hero";
 import Products from "@/components/section/products/products";
 import Reviews from "@/components/section/reviews/reviews";
+import { LocalizedLink } from "@/components/ui/LocalizedLink";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -43,7 +44,7 @@ export default function TgPage() {
 
   return (
     <main style={{ padding: 16 }}>
-        <Link href={'/tg/about'}>О нас</Link>
+        <LocalizedLink href={'/tg/about'}>О нас</LocalizedLink>
       <Hero />
       <Products />
       <About />
