@@ -16,7 +16,8 @@ export type BlogContentItem =
   | { type: 'paragraph'; text: string }
   | { type: 'list'; items: string[]; ordered?: boolean }
   | { type: 'image'; src: string; alt: string; caption?: string }
-  | { type: 'quote'; text: string; author?: string };
+  | { type: 'quote'; text: string; author?: string }
+  | { type: 'warning'; text: string; author?: string };
 
 // Полная структура статьи
 export interface BlogArticle extends BlogCardData {

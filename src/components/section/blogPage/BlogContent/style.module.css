@@ -46,6 +46,7 @@ h6.heading {
   font-weight: 600;
   font-size: 18px;
   margin-top: 16px;
+  line-height: 1.2;
 }
 
 /* ---------- Text ---------- */
@@ -196,6 +197,49 @@ ol.list .listItem::marker {
   font-size: 14px;
 }
 
+/* ---------- warning ---------- */
+.warning {
+  margin: 14px 0;
+  padding: 18px 18px 18px 16px;
+
+  border-radius: 14px;
+
+  background: rgba(172, 112, 0, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  position: relative;
+  transition: 300ms;
+}
+
+.warning:hover {
+  background: rgba(172, 112, 0, 0.08);
+
+}
+
+.warning::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 14px;
+  bottom: 14px;
+  width: 3px;
+  border-radius: 3px;
+  background: rgba(255, 166, 0, 0.384);
+}
+
+.warningText {
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.warningAuthor {
+  display: block;
+  margin-top: 10px;
+  font-style: normal;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 14px;
+}
 /* ---------- Rhythm tweaks ---------- */
 .heading + .paragraph {
   margin-top: -6px;

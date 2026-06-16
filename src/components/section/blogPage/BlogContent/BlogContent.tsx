@@ -36,8 +36,8 @@ export default function BlogContent({ content }: BlogContentProps) {
 
                             case 'paragraph':
                                 return (
-                                    <p key={index} className={s.paragraph}>
-                                        {block.text}
+                                    <p key={index} dangerouslySetInnerHTML={{__html:block.text}} className={s.paragraph}>
+                                        
                                     </p>
                                 );
 
@@ -79,6 +79,16 @@ export default function BlogContent({ content }: BlogContentProps) {
                                             <cite className={s.quoteAuthor}>— {block.author}</cite>
                                         )}
                                     </blockquote>
+                                );
+
+                            case 'warning':
+                                return (
+                                    <div key={index} className={s.warning}>
+                                        <p className={s.warningText} dangerouslySetInnerHTML={{__html:block.text}}></p>
+                                        {block.author && (
+                                            <cite className={s.warningAuthor}>— {block.author}</cite>
+                                        )}
+                                    </div>
                                 );
 
                             default:

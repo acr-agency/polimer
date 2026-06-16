@@ -20,9 +20,9 @@
           "hex": "#006400"
         },
         {
-          "id": "khaki",
-          "name": "Хаки",
-          "hex": "#323437"
+          "id": "black",
+          "name": "Чёрный",
+          "hex": "#000000"
         },
         {
           "id": "brown",
@@ -44,25 +44,25 @@
         {
           "id": "img1",
           "url": "/img/products/luk-lu/1.webp",
-          "colorId": "",
+          "colorId": "black",
           "sort": 1
         },
         {
           "id": "img2",
           "url": "/img/products/luk-lu/2.webp",
-          "colorId": "",
+          "colorId": "gray",
           "sort": 2
         },
         {
           "id": "img3",
           "url": "/img/products/luk-lu/3.webp",
-          "colorId": "",
+          "colorId": "brown",
           "sort": 3
         },
         {
           "id": "img4",
           "url": "/img/products/luk-lu/4.webp",
-          "colorId": "",
+          "colorId": "red",
           "sort": 4
         }
       ]

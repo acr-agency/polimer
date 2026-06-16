@@ -18,6 +18,7 @@
 .separator {
   opacity: 0.6;
 }
+
 .separator.dark {
   color: var(--siniy-1);
 }
@@ -27,24 +28,39 @@
   color: var(--seryy-1);
   transition: color 0.2s ease;
 }
-.link.dark{
+
+.link.dark {
   color: var(--temnyy-2);
 
 }
+
 .link:hover {
   color: var(--belyy);
 }
+
 .link.dark:hover {
   color: var(--siniy-1);
 }
+
 .current {
   color: var(--belyy);
   cursor: default;
 }
+
 .current.dark {
   color: var(--temnyy-2);
 }
-.link.dark{
+
+.link.dark {
   color: var(--temnyy-2);
+
+}
+
+
+@media (max-width: 470px) {
+  .BreadCrumbs {
+    padding-top: 80px;
+    background: linear-gradient(324deg, #00000000 16%, #00000096 73%);
+  }
 
 }

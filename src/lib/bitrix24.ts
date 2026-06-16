@@ -11,8 +11,8 @@ export const BITRIX_CONFIG = {
 
 // ID пользовательских полей (из ТЗ)
 export const UF_FIELDS = {
-  message: 'UF_CRM_1779108607', // Сообщение
-  agreement: 'UF_CRM_1779108695', // Чек-бокс согласие
+  message: 'UF_CRM_1780074067', // Сообщение
+  agreement: 'UF_CRM_1780074405', // Чек-бокс согласие
   formId: 'UF_CRM_XXXXXXXXXX', // ID формы (НУЖНО УТОЧНИТЬ У КЛИЕНТА!)
 };
 

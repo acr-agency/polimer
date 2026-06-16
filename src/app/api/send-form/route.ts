@@ -160,15 +160,15 @@ export async function POST(request: NextRequest) {
     // Создаем HTML письма (передаем email)
     const html = createEmailHTML({ name, phone: phone, email, message, topic });
 
-    console.log('📧 Отправка письма на 73polimer@mail.ru...');
+    // console.log('📧 Отправка письма на 73polimer@mail.ru...');
 
-    // Отправляем письмо основному получателю 
-    const mainResult = await transporter.sendMail({
-      from: '"Полимеры" <ForAnalyticss@yandex.ru>',
-      to: '73polimer@mail.ru',
-      subject: subject,
-      html: html,
-    });
+    // // Отправляем письмо основному получателю 
+    // const mainResult = await transporter.sendMail({
+    //   from: '"Полимеры" <ForAnalyticss@yandex.ru>',
+    //   to: '73polimer@mail.ru',
+    //   subject: subject,
+    //   html: html,
+    // });
 
     // Отправляем копию
     console.log('📧 Отправка копии на ForAnalyticss@yandex.ru...');

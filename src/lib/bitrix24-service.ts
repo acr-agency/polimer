@@ -208,7 +208,7 @@ export async function createDeal(
   }
 
 
-
+  const readableUrl = decodeURI(pageUrl);
 
   const FIELDS: Record<string, any> = {
     TITLE: dealTitle,
@@ -216,9 +216,9 @@ export async function createDeal(
     CONTACT_ID: contactId,
     STAGE_ID: 'NEW',
     SOURCE_ID: "9677718153",
-    SOURCE_DESCRIPTION: `${pageUrl}`,
-    ASSIGNED_BY_ID: BITRIX_CONFIG.responsibleUserId,
-    DESCRIPTION: `📝 Сообщение: ${message || 'Не указано'}\n\nСтраница: ${pageTitle}\n URL: ${pageUrl}`,
+    SOURCE_DESCRIPTION: `${readableUrl}`,
+    ASSIGNED_BY_ID: 14,
+    DESCRIPTION: `📝 Сообщение: ${message || 'Не указано'}\n\nСтраница: ${pageTitle}\n URL: ${readableUrl}`,
   };
 
   if (message) {
@@ -255,14 +255,15 @@ export async function upsertContact(
   email?: string,
   message?: string
 ): Promise<number> {
+   const readableUrl = decodeURI(pageUrl);
   const FIELDS: Record<string, any> = {
     NAME: name,
     PHONE: [
       { VALUE:phone, VALUE_TYPE: 'WORK' }
     ],
     SOURCE_ID: "9677718153",
-     SOURCE_DESCRIPTION: `${pageUrl}`,
-    ASSIGNED_BY_ID: BITRIX_CONFIG.responsibleUserId,
+     SOURCE_DESCRIPTION: `${readableUrl}`,
+    ASSIGNED_BY_ID: 14,
   };
 
   // Добавляем email, если он есть

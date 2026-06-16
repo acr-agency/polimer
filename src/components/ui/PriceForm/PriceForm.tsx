@@ -166,14 +166,14 @@ export default function PriceForm({ onClose }: Props) {
     onClose();
   };
 
-  const triggerDownload = () => {
-    const link = document.createElement("a");
-    link.href = "/docs/Ценовое предложение.pdf"; 
-    link.download = "Ценовое предложение.pdf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+  // const triggerDownload = () => {
+  //   const link = document.createElement("a");
+  //   link.href = "/docs/Ценовое предложение.pdf"; 
+  //   link.download = "Ценовое предложение.pdf";
+  //   document.body.appendChild(link);
+  //   link.click();
+  //   document.body.removeChild(link);
+  // };
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -216,7 +216,7 @@ export default function PriceForm({ onClose }: Props) {
       }
 
       // Отправка успешна — скачиваем PDF
-      triggerDownload();
+      // triggerDownload();
 
       setIsSuccess(true);
       setValues(initial);
@@ -480,10 +480,9 @@ export default function PriceForm({ onClose }: Props) {
                   </svg>
                 </div>
 
-                <h3 className={s.successTitle}>Прайс-лист скачан!</h3>
+                <h3 className={s.successTitle}>Запрос отправлен!</h3>
                 <p className={s.successText}>
-                  Спасибо за интерес к нашему предложению. Если у вас возникнут
-                  вопросы, мы с радостью на них ответим в ближайшее время.
+                  Спасибо за интерес к нашему предложению. Мы свяжемся с вами в ближайшее время.
                 </p>
 
                 <button className={`butt ${s.successBtn}`} onClick={closeAll}>
