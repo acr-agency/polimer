@@ -20,7 +20,7 @@
 }
 
 .separator.dark {
-  color: var(--siniy-1);
+  color: var(--akcentnyy-1);
 }
 
 .link {
@@ -39,7 +39,7 @@
 }
 
 .link.dark:hover {
-  color: var(--siniy-1);
+  color: var(--akcentnyy-1);
 }
 
 .current {
@@ -58,9 +58,6 @@
 
 
 @media (max-width: 470px) {
-  .BreadCrumbs {
-    padding-top: 80px;
-    background: linear-gradient(324deg, #00000000 16%, #00000096 73%);
-  }
+
 
 }

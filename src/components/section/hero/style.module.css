@@ -43,7 +43,7 @@
 /* Остальные стили остаются без изменений */
 .heroContentSpan {
   all: unset;
-  color: var(--siniy-1);
+  color: var(--akcentnyy-1);
   opacity: 0.8;
 }
 
@@ -59,7 +59,7 @@
 }
 
 .heroBtn2 {
-  background: var(--siniy-1);
+  background: var(--akcentnyy-1);
   color: var(--belyy);
 }
 
@@ -134,7 +134,7 @@
 
 
 .priceBtn:hover {
-  background: var(--siniy-1);
+  background: var(--akcentnyy-1);
   color: var(--belyy);
 
 }

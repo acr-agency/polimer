@@ -1,0 +1,211 @@
+// ProductHeaderMenu.module.scss
+.overflou {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+
+    background: #00000036;
+    backdrop-filter: blur(15px);
+    z-index: 99;
+
+    display: flex;
+    justify-content: center;
+}
+
+.budy {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    
+    top: 85px;
+
+    padding: 30px 40px;
+
+    background: var(--temnyy-1);
+
+    height: fit-content;
+
+    max-width: 1100px;
+    width: 100%;
+    border-radius: 0 0 5px 5px ;
+}
+
+.head {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.title {
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: var(--seryy-1);
+
+    margin: 30px 0 20px;
+}
+
+.main {
+    display: grid;
+    grid-template-columns: repeat(4, 250px);
+    grid-template-rows: repeat(3, 150px);
+    gap: 15px;
+}
+
+.tab {
+    border-radius: 5px;
+    padding: 15px 20px;
+
+    background: var(--akcentnyy-1);
+
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 130%;
+    color: var(--belyy);
+
+    border: 1px solid var(--akcentnyy-1);
+    transition: 300ms all;
+
+    cursor: pointer;
+
+    &.active {
+        background: var(--belyy);
+        color: var(--temnyy-1);
+        border-color: var(--belyy);
+    }
+
+    &:hover {
+        border-color: var(--belyy);
+    }
+}
+
+// Стили для карточек
+.productCard {
+    border-radius: 5px;
+    overflow: hidden;
+    background: var(--temnyy-2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    aspect-ratio: 1 / 1;
+
+    height: 100%;
+    width: 100%;
+}
+
+.imageWrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    &:hover img {
+        transform: scale(1.1);
+    }
+
+    // Градиент для лучшей читаемости текста
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 50%);
+        pointer-events: none;
+    }
+}
+
+.productInfo {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.productName {
+    font-family: var(--font-family);
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--belyy);
+    margin: 0 0 4px 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    line-height: 1.2;
+}
+
+.productSubName {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    line-height: 1.3;
+}
+
+// Адаптивность
+@media (max-width: 1024px) {
+    .main {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .budy {
+        padding: 20px;
+        top: 60px;
+        max-height: 85vh;
+    }
+
+    .main {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .tab {
+        font-size: 14px;
+        padding: 10px 15px;
+    }
+
+    .productName {
+        font-size: 14px;
+    }
+
+    .productSubName {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .productInfo {
+        top: 10px;
+        left: 10px;
+        right: 10px;
+    }
+
+    .productName {
+        font-size: 12px;
+    }
+
+    .productSubName {
+        font-size: 10px;
+    }
+}

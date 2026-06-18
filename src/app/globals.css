@@ -6,7 +6,7 @@
   --seryy-3: #333641;
   --temnyy-1: #1b1d28;
   --temnyy-2: #000412;
-  --siniy-1: #6F798D;
+  --akcentnyy-1: #6F798D;
   /* Основные цвета для темы */
   --background: var(--temnyy-2);
   --foreground: var(--belyy);
@@ -132,7 +132,7 @@ button {
 }
 
 .butt2 {
-  background: var(--siniy-1);
+  background: var(--akcentnyy-1);
   color: var(--belyy);
 }
 
@@ -153,13 +153,13 @@ button {
 
 .butt:hover {
   color: var(--belyy);
-  background: var(--siniy-1);
+  background: var(--akcentnyy-1);
 }
 
 .butt:active {
   transform: scale(0.98);
 
-  color: var(--siniy-1);
+  color: var(--akcentnyy-1);
   background: var(--belyy);
 }
 

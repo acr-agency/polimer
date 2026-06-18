@@ -163,7 +163,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--siniy-1);
+  background: var(--akcentnyy-1);
 }
 
 .cards {
@@ -215,7 +215,7 @@
 }
 
 .contactLink:hover {
-  color: var(--siniy-1);
+  color: var(--akcentnyy-1);
 }
 
 .linkList {

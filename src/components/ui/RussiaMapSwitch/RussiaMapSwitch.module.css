@@ -32,7 +32,7 @@
 }
 
 .wrap [data-layer="region"].isActive {
-  fill: var(--siniy-1);
+  fill: var(--akcentnyy-1);
 }
 
 .wrap [data-layer="okrug"] {
@@ -58,7 +58,7 @@
 
 .resetButton {
   padding: 8px 16px;
-  background: var(--siniy-1);
+  background: var(--akcentnyy-1);
   color: white;
   border: none;
   border-radius: 20px;
@@ -95,7 +95,7 @@
 
 .zoomLevel {
   font-weight: 600;
-  color: var(--siniy-1);
+  color: var(--akcentnyy-1);
 }
 
 .zoomHint {

@@ -68,7 +68,7 @@
 }
 
 .butT1 {
-  background: var(--siniy-1);
+  background: var(--akcentnyy-1);
   color: var(--belyy);
   border: none;
 }
@@ -91,12 +91,12 @@
 }
 
 .uiGoldText {
-  color: var(--siniy-1);
+  color: var(--akcentnyy-1);
   font-weight: 500;
 }
 
 .cookieLink {
-  color: var(--siniy-1);
+  color: var(--akcentnyy-1);
   text-decoration: underline;
   transition: opacity 0.2s ease;
 }
@@ -205,7 +205,7 @@
 }
 
 .sw2[data-on="true"] {
-  background: var(--siniy-1);
+  background: var(--akcentnyy-1);
 }
 
 .sw2[data-on="true"] .sw2Dot {

@@ -85,4 +85,10 @@
         font-size: 14px;
         line-height: 140%;
     }
+
+
+    .hero :global([aria-label="Хлебные крошки"]) {
+    padding-top: 80px;
+    background: linear-gradient(324deg, #00000000 16%, #00000096 73%);
+  }
 }
