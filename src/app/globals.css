@@ -166,7 +166,7 @@ button {
 .h1 {
   font-family: var(--russo-family);
   font-weight: 600;
-  font-size: clamp(28px, 4.5vw, 58px);
+  font-size: clamp(18px, 4.5vw, 58px);
   line-height: 100%;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -184,7 +184,8 @@ button {
 
 .seryy {
   all: unset;
-  color: var(--seryy-1);
+  text-transform: uppercase;
+  color:var(--akcentnyy-1);
 }
 
 .t28{

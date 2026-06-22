@@ -1,30 +1,52 @@
 {
   "id": "kolco-smotrovogo-kolodc",
   "slug": "kolco-smotrovogo-kolodc",
-  "titleShort": "Кольцо смотрового колодца",
-  "titleFull": "Кольцо смотрового колодца",
-  "description": "",
+  "titleShort": "Кольцо Полимерно-песчаное",
+  "titleFull": "Кольцо смотрового колодца полимерпесчаное метровое",
+  "description": "Полимерно-песчаные кольца производственной компании Полимерные Технологии – это изделие предназначенное для обустройства систем канализации, водоснабжения и других инженерных сетей.",
+  "warning":"Полимерно-песчаные кольдца устанавливаются на приусадебных участках, в частном секторе в местах, где отсутствует возможность подъезда тяжелой техники трактора, крана или манипулятора для копки и монтажа бетонных ЖБИ колец. ",
+  "remember" :"При обустройстве полимерно-песчаного колодца вы можете самостоятельно регулировать глубину полимерно-песчаного за счет установки большего количества колец. Высота каждого кольца составляет 20см, диаметр полимерно-песчаного кольца составляет 1 метр.",
   "instructionUrl": "/# ",
   "variants": [
     {
       "id": "v1",
       "title": "Название варианта (Легкий/Средний/Тяжелый)",
+      "priceRub":1400,
       "colors": [
         {
           "id": "black",
           "name": "Черный",
           "hex": "#000000"
-        },
-        {
-          "id": "green",
-          "name": "Зеленый",
-          "hex": "#00FF00"
         }
       ],
       "images": [
         {
           "id": "img1",
           "url": "/img/products/kolco-smotrovogo-kolodca/1.webp",
+          "alt": "Описание фото",
+          "colorId": "black",
+          "sort": 1
+        }, {
+          "id": "img2",
+          "url": "/img/products/kolco-smotrovogo-kolodca/2.webp",
+          "alt": "Описание фото",
+          "colorId": "black",
+          "sort": 1
+        }, {
+          "id": "img3",
+          "url": "/img/products/kolco-smotrovogo-kolodca/3.webp",
+          "alt": "Описание фото",
+          "colorId": "black",
+          "sort": 1
+        }, {
+          "id": "img4",
+          "url": "/img/products/kolco-smotrovogo-kolodca/4.webp",
+          "alt": "Описание фото",
+          "colorId": "black",
+          "sort": 1
+        }, {
+          "id": "img5",
+          "url": "/img/products/kolco-smotrovogo-kolodca/5.webp",
           "alt": "Описание фото",
           "colorId": "black",
           "sort": 1

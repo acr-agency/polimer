@@ -5,6 +5,7 @@ import s from "./style.module.css";
 import Image from "next/image";
 import { useState } from "react";
 import PriceForm from "@/components/ui/PriceForm/PriceForm";
+import PrezentForm from "@/components/ui/PrezentForm/PrezentForm";
 
 type Advantage = {
   icon: string;
@@ -19,6 +20,7 @@ export default function Hero() {
   const [activeItem, setActiveItem] = useState<Instruct | null>(null);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [isPriceFormOpen, setIsPriceFormOpen] = useState(false);
+  const [isPrezentFormOpen, setIsPrezentFormOpen] = useState(false);
   const advantages: Advantage[] = [
     { icon: "/icons/about/4.svg", text: "доставка по всей россии от нас до клиента" },
     { icon: "/icons/advantages/2.svg", text: "большой складской запас продукции" },
@@ -43,6 +45,10 @@ export default function Hero() {
 
   const closePriceForm = () => {
     setIsPriceFormOpen(false);
+  };
+
+   const closePrezentForm = () => {
+    setIsPrezentFormOpen(false);
   };
 
   return (
@@ -72,8 +78,8 @@ export default function Hero() {
 
         <div className={`container ${s.contain}`}>
           <div className={s.heroContent}>
-            <h1 className="h1">
-              <span className={`seryy ${s.subTitle}`}>люки Канализационные</span> <br /> полимерно-песчаные
+            <h1 className={`h1 ${s.title}`}>
+              люки <span className={`seryy ${s.subTitle}`}>Канализационные</span>  <br /> полимерно-песчаные <br /> оптом <span className={`seryy ${s.subTitle}`}>с доставкой по Рф</span>
             </h1>
 
             <h2 className={s.heroH2}>
@@ -84,25 +90,25 @@ export default function Hero() {
               <button className={"butt " + s.heroBtn + " " + s.heroBtn2} onClick={() => openModal({
                 title: "Презентация компании", gallery:
                   [
-                    { image: "/img/present/1.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
-                    { image: "/img/present/2.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
-                    { image: "/img/present/3.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
-                    { image: "/img/present/4.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
-                    { image: "/img/present/5.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
-                    { image: "/img/present/6.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
-                    { image: "/img/present/7.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
-                    { image: "/img/present/8.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
-                    { image: "/img/present/9.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
-                    { image: "/img/present/10.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
-                    { image: "/img/present/11.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
-                    { image: "/img/present/12.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
-                    { image: "/img/present/13.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
-                    { image: "/img/present/14.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
-                    { image: "/img/present/15.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
-                    { image: "/img/present/16.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
-                    { image: "/img/present/17.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
-                    { image: "/img/present/18.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
-                    { image: "/img/present/19.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
+                    { image: "/img/present/1.webp", onPopup:() => setIsPrezentFormOpen(true) },
+                    { image: "/img/present/2.webp",  onPopup:() => setIsPrezentFormOpen(true)  },
+                    { image: "/img/present/3.webp",  onPopup:() => setIsPrezentFormOpen(true)  },
+                    { image: "/img/present/4.webp",  onPopup:() => setIsPrezentFormOpen(true)  },
+                    { image: "/img/present/5.webp",  onPopup:() => setIsPrezentFormOpen(true)  },
+                    { image: "/img/present/6.webp",  onPopup:() => setIsPrezentFormOpen(true)  },
+                    { image: "/img/present/7.webp",  onPopup:() => setIsPrezentFormOpen(true)  },
+                    { image: "/img/present/8.webp",  onPopup:() => setIsPrezentFormOpen(true)  },
+                    { image: "/img/present/9.webp",  onPopup:() => setIsPrezentFormOpen(true)  },
+                    { image: "/img/present/10.webp",  onPopup:() => setIsPrezentFormOpen(true)  },
+                    { image: "/img/present/11.webp",  onPopup:() => setIsPrezentFormOpen(true)  },
+                    { image: "/img/present/12.webp",  onPopup:() => setIsPrezentFormOpen(true)  },
+                    { image: "/img/present/13.webp",  onPopup:() => setIsPrezentFormOpen(true)  },
+                    { image: "/img/present/14.webp",  onPopup:() => setIsPrezentFormOpen(true)  },
+                    { image: "/img/present/15.webp",  onPopup:() => setIsPrezentFormOpen(true)  },
+                    { image: "/img/present/16.webp",  onPopup:() => setIsPrezentFormOpen(true)  },
+                    { image: "/img/present/17.webp",  onPopup:() => setIsPrezentFormOpen(true)  },
+                    { image: "/img/present/18.webp",  onPopup:() => setIsPrezentFormOpen(true)  },
+                    { image: "/img/present/19.webp",  onPopup:() => setIsPrezentFormOpen(true)  },
                   ]
               })} >
                 Скачать презентацию и каталог продукции
@@ -162,6 +168,9 @@ export default function Hero() {
         title={activeItem?.title}
         onClose={closeModal}
       />
+      {isPrezentFormOpen && (
+        <PrezentForm onClose={closePrezentForm} />
+      )}
       {/* Попап для скачивания прайс-листа */}
       {isPriceFormOpen && (
         <PriceForm onClose={closePriceForm} />

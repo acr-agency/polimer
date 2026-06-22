@@ -17,7 +17,7 @@ export default function Interesting({ items }: { items: BlogCardData[] }) {
     <section className={s.Interesting}>
       <div className="container">
         <div className={s.InterestingHeader}>
-          <h2 className="h2">Так же вам будет <br /> интересно</h2>
+          <h2 className="h2">Полезные статьи</h2>
 
           <SliderArrows
             onPrev={() => carouselRef.current?.prev()}

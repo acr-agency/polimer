@@ -13,6 +13,7 @@ interface LightboxProps {
 export type SlideItem = {
   image: string;
   pdf?: string;
+  onPopup?: () => void;
 };
 
 export default function Lightbox({ isOpen, images, title, onClose }: LightboxProps) {
@@ -127,9 +128,9 @@ export default function Lightbox({ isOpen, images, title, onClose }: LightboxPro
   };
 
   if (!isOpen && !isClosing) return null;
-  
+
   const currentItem = images[currentSlide];
-  
+
   return (
     <div
       className={`${s.lightbox} ${isClosing ? s.lightboxClosing : s.lightboxOpen}`}
@@ -148,9 +149,8 @@ export default function Lightbox({ isOpen, images, title, onClose }: LightboxPro
       </button>
 
       <div
-        className={`${s.lightboxContent} ${
-          isClosing ? s.contentClosing : s.contentOpen
-        } ${s[`orientation_${imageOrientation}`] || ""}`}
+        className={`${s.lightboxContent} ${isClosing ? s.contentClosing : s.contentOpen
+          } ${s[`orientation_${imageOrientation}`] || ""}`}
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -189,18 +189,34 @@ export default function Lightbox({ isOpen, images, title, onClose }: LightboxPro
               </div>
             ))}
           </div>
-          {currentItem?.pdf && (
-            <a
-              href={currentItem.pdf}
-              download
-              target="_blank"
-              rel="noopener noreferrer"
-              className={s.downloadBtn}
-              onClick={(e) => e.stopPropagation()}
-            >
-              Скачать PDF
-            </a>
-          )}
+          <>
+            {currentItem?.pdf && (
+              <a
+                href={currentItem.pdf}
+                download
+                target="_blank"
+                rel="noopener noreferrer"
+                className={s.downloadBtn}
+                onClick={(e) => e.stopPropagation()}
+              >
+                Скачать PDF
+              </a>
+            )}
+
+            {currentItem?.onPopup && (
+              <button
+
+                className={s.downloadBtn}
+                onClick={currentItem?.onPopup}
+              >
+                Скачать PDF
+              </button>
+            )}
+
+
+
+          </>
+
         </div>
       </div>
 

@@ -290,7 +290,10 @@ export default function Footer(): JSX.Element {
                     )}
                   </li>
                 ))}
+                <br />
+                  <a className={s.footerLink + " link " + s.siteMapTitle}  href="/blog">Полезные статьи</a>
               </ul>
+            
             </nav>
           </div>
 

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import s from "./style.module.css";
+import BreadCrumbs from "@/components/ui/BreadCrumbs/BreadCrumbs";
 
 export default function Contacts() {
     const companyDetails = {
@@ -18,6 +19,7 @@ export default function Contacts() {
     return (
         <section className={s.contacts}>
             <div className="container">
+                <BreadCrumbs items={[{title:"Контакты  ООО «Полимерные Технологии»"}]}/>
                 <h1 className="h1">Контакты {companyDetails.name}</h1>
 
                 <div className={s.contactsGrid}>

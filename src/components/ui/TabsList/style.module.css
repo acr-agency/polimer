@@ -42,7 +42,7 @@
 
 /* active */
 .active {
-  color: var(--belyy);
+  color: var(--belyy) !important;
   background: var(--temnyy-1);
 }
 
