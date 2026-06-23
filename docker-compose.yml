@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    volumes:
+      # Персистентное хранилище для статей блога
+      - blog_data:/app/data/blog
+      # Персистентное хранилище для загруженных изображений
+      - uploads_data:/app/data/uploads
+    restart: unless-stopped
+
+volumes:
+  blog_data:
+  uploads_data:

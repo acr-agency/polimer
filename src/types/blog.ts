@@ -12,7 +12,7 @@ export interface BlogCardData {
 
 // Элемент контента блога
 export type BlogContentItem = 
-  | { type: 'heading'; text: string; level?: 1 | 2 | 3 }
+  | { type: 'heading'; text: string; level?: 1 | 2 | 3 | 4 }
   | { type: 'paragraph'; text: string }
   | { type: 'list'; items: string[]; ordered?: boolean }
   | { type: 'image'; src: string; alt: string; caption?: string }
