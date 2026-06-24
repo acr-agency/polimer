@@ -1,6 +1,17 @@
 [
-  { "slug": "kakoy-polimerpeschanyy-lyuk-vybrat-dlya-ustanovki-na-proyezzhey-chasti"},
-  { "slug": "vsya-pravda-o-polimerpeschanoi-plitke-pl" },
-  { "slug": "kakoy-lyuk-vybrat-chugunnyy-ili-polimerno-peschanyy" },
-  { "slug": "septik-ili-vygrebnaya-yama-chto-vybrat" }
+  {
+    "slug": "kakoy-polimerpeschanyy-lyuk-vybrat-dlya-ustanovki-na-proyezzhey-chasti"
+  },
+  {
+    "slug": "vsya-pravda-o-polimerpeschanoi-plitke-pl"
+  },
+  {
+    "slug": "kakoy-lyuk-vybrat-chugunnyy-ili-polimerno-peschanyy"
+  },
+  {
+    "slug": "septik-ili-vygrebnaya-yama-chto-vybrat"
+  },
+  {
+    "slug": "test"
+  }
 ]

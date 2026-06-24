@@ -50,7 +50,7 @@ export async function PUT(
     }
 
     const body = await request.json();
-    const { title, slug: newSlug, excerpt, category, tags, readingTime, content, img, hero, date } = body;
+    const { title, slug: newSlug, excerpt, category, tags, readingTime, content, img, hero, date, published } = body;
 
     const updatedArticle = {
       ...existing,
@@ -64,6 +64,7 @@ export async function PUT(
       tags: tags !== undefined ? tags : existing.tags,
       readingTime: readingTime || existing.readingTime,
       content: content || existing.content,
+      published: published !== undefined ? published : existing.published,
     };
 
     // If slug changed, delete old file

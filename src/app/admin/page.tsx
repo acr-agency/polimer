@@ -10,12 +10,14 @@ interface Article {
   title: string;
   date: string;
   category?: string;
+  published?: boolean;
 }
 
 export default function AdminDashboard() {
   const router = useRouter();
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
+  const [togglingSlug, setTogglingSlug] = useState<string | null>(null);
 
   async function loadArticles() {
     try {
@@ -52,6 +54,28 @@ export default function AdminDashboard() {
       }
     } catch (err) {
       console.error(err);
+    }
+  }
+
+  async function togglePublished(slug: string, currentPublished: boolean) {
+    setTogglingSlug(slug);
+    try {
+      const res = await fetch(`/api/admin/blog/${slug}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ published: !currentPublished }),
+      });
+      if (res.ok) {
+        setArticles(prev =>
+          prev.map(a =>
+            a.slug === slug ? { ...a, published: !currentPublished } : a
+          )
+        );
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setTogglingSlug(null);
     }
   }
 
@@ -113,65 +137,94 @@ export default function AdminDashboard() {
             </Link>
           </div>
         ) : (
-          <table style={{
-            width: '100%',
-            borderCollapse: 'collapse',
-            background: '#16213e',
-            borderRadius: '8px',
-            overflow: 'hidden',
-          }}>
-            <thead>
-              <tr style={{ borderBottom: '1px solid #0f3460' }}>
-                <th style={{ padding: '12px 16px', textAlign: 'left', color: '#888', fontWeight: 'normal', fontSize: '13px' }}>ID</th>
-                <th style={{ padding: '12px 16px', textAlign: 'left', color: '#888', fontWeight: 'normal', fontSize: '13px' }}>Название</th>
-                <th style={{ padding: '12px 16px', textAlign: 'left', color: '#888', fontWeight: 'normal', fontSize: '13px' }}>Категория</th>
-                <th style={{ padding: '12px 16px', textAlign: 'left', color: '#888', fontWeight: 'normal', fontSize: '13px' }}>Дата</th>
-                <th style={{ padding: '12px 16px', textAlign: 'right', color: '#888', fontWeight: 'normal', fontSize: '13px' }}>Действия</th>
-              </tr>
-            </thead>
-            <tbody>
-              {articles.map((article, i) => (
-                <tr key={article.slug} style={{
-                  borderBottom: i < articles.length - 1 ? '1px solid #0f3460' : 'none',
-                }}>
-                  <td style={{ padding: '12px 16px', color: '#666', fontSize: '14px' }}>{article.id}</td>
-                  <td style={{ padding: '12px 16px', fontSize: '14px' }}>{article.title}</td>
-                  <td style={{ padding: '12px 16px', fontSize: '14px', color: '#aaa' }}>{article.category || '-'}</td>
-                  <td style={{ padding: '12px 16px', fontSize: '14px', color: '#aaa' }}>{article.date}</td>
-                  <td style={{ padding: '12px 16px', textAlign: 'right' }}>
-                    <Link
-                      href={`/admin/blog/edit/${article.slug}`}
-                      style={{
-                        padding: '6px 12px',
-                        background: '#0f3460',
-                        color: '#fff',
-                        textDecoration: 'none',
-                        borderRadius: '4px',
-                        fontSize: '13px',
-                        marginRight: '8px',
-                      }}
-                    >
-                      ✏️ Редактировать
-                    </Link>
-                    <button
-                      onClick={() => handleDelete(article.slug)}
-                      style={{
-                        padding: '6px 12px',
-                        background: 'transparent',
-                        color: '#ff6b6b',
-                        border: '1px solid #ff6b6b',
-                        borderRadius: '4px',
-                        cursor: 'pointer',
-                        fontSize: '13px',
-                      }}
-                    >
-                      🗑️ Удалить
-                    </button>
-                  </td>
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{
+              width: '100%',
+              borderCollapse: 'collapse',
+              background: '#16213e',
+              borderRadius: '8px',
+              overflow: 'hidden',
+              minWidth: '700px',
+            }}>
+              <thead>
+                <tr style={{ borderBottom: '1px solid #0f3460' }}>
+                  <th style={{ padding: '12px 16px', textAlign: 'left', color: '#888', fontWeight: 'normal', fontSize: '13px' }}>ID</th>
+                  <th style={{ padding: '12px 16px', textAlign: 'left', color: '#888', fontWeight: 'normal', fontSize: '13px' }}>Название</th>
+                  <th style={{ padding: '12px 16px', textAlign: 'left', color: '#888', fontWeight: 'normal', fontSize: '13px' }}>Статус</th>
+                  <th style={{ padding: '12px 16px', textAlign: 'left', color: '#888', fontWeight: 'normal', fontSize: '13px' }}>Категория</th>
+                  <th style={{ padding: '12px 16px', textAlign: 'left', color: '#888', fontWeight: 'normal', fontSize: '13px' }}>Дата</th>
+                  <th style={{ padding: '12px 16px', textAlign: 'right', color: '#888', fontWeight: 'normal', fontSize: '13px' }}>Действия</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {articles.map((article, i) => (
+                  <tr key={article.slug} style={{
+                    borderBottom: i < articles.length - 1 ? '1px solid #0f3460' : 'none',
+                    opacity: article.published === false ? 0.5 : 1,
+                  }}>
+                    <td style={{ padding: '12px 16px', color: '#666', fontSize: '14px' }}>{article.id}</td>
+                    <td style={{ padding: '12px 16px', fontSize: '14px' }}>{article.title}</td>
+                    <td style={{ padding: '12px 16px', fontSize: '14px' }}>
+                      <button
+                        onClick={() => togglePublished(article.slug, article.published !== false)}
+                        disabled={togglingSlug === article.slug}
+                        title={article.published !== false ? 'Опубликована — нажмите чтобы скрыть' : 'Скрыта — нажмите чтобы опубликовать'}
+                        style={{
+                          padding: '4px 10px',
+                          borderRadius: '12px',
+                          border: 'none',
+                          fontSize: '12px',
+                          cursor: togglingSlug === article.slug ? 'wait' : 'pointer',
+                          background: article.published !== false ? '#4ade80' : '#555',
+                          color: article.published !== false ? '#000' : '#ccc',
+                          transition: 'all 0.2s',
+                        }}
+                      >
+                        {togglingSlug === article.slug
+                          ? '...'
+                          : article.published !== false
+                            ? '✓ Опубликовано'
+                            : '— Скрыто'
+                        }
+                      </button>
+                    </td>
+                    <td style={{ padding: '12px 16px', fontSize: '14px', color: '#aaa' }}>{article.category || '-'}</td>
+                    <td style={{ padding: '12px 16px', fontSize: '14px', color: '#aaa' }}>{article.date}</td>
+                    <td style={{ padding: '12px 16px', textAlign: 'right', whiteSpace: 'nowrap' }}>
+                      <Link
+                        href={`/admin/blog/edit/${article.slug}`}
+                        style={{
+                          padding: '6px 12px',
+                          background: '#0f3460',
+                          color: '#fff',
+                          textDecoration: 'none',
+                          borderRadius: '4px',
+                          fontSize: '13px',
+                          marginRight: '8px',
+                        }}
+                      >
+                        ✏️ Редактировать
+                      </Link>
+                      <button
+                        onClick={() => handleDelete(article.slug)}
+                        style={{
+                          padding: '6px 12px',
+                          background: 'transparent',
+                          color: '#ff6b6b',
+                          border: '1px solid #ff6b6b',
+                          borderRadius: '4px',
+                          cursor: 'pointer',
+                          fontSize: '13px',
+                        }}
+                      >
+                        🗑️ Удалить
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </main>
     </div>

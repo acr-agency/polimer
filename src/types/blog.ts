@@ -26,4 +26,5 @@ export interface BlogArticle extends BlogCardData {
   tags?: string[];
   readingTime?: number; // в минутах
   updatedAt?: string;
+  published?: boolean; // статья видна на сайте или нет
 }

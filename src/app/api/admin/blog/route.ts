@@ -51,6 +51,7 @@ export async function POST(request: NextRequest) {
       tags: tags || [],
       readingTime: readingTime || 5,
       content,
+      published: true, // по умолчанию опубликовано
     };
 
     saveArticle(article);

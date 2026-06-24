@@ -1,0 +1,24 @@
+{
+  "id": 4,
+  "slug": "test",
+  "title": "тест после редактирования ",
+  "img": "/api/admin/uploads/1782299298619-8bcoyt.jpg",
+  "hero": "",
+  "date": "24.06.2026",
+  "excerpt": "вфыв (❤️´艸｀❤️)( •̀ ω •́ )✧ s",
+  "category": "",
+  "tags": [],
+  "readingTime": 5,
+  "content": [
+    {
+      "type": "heading",
+      "text": "Тестовая 2",
+      "level": 2
+    },
+    {
+      "type": "paragraph",
+      "text": "ヽ（≧□≦）ノヽ（≧□≦）ノ"
+    }
+  ],
+  "published": true
+}
