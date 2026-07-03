@@ -54,28 +54,7 @@ export function ensureDataDir(): void {
   }
 }
 
-// Синхронизировать src/data/blog с data/blog (чтобы сайт видел новые и изменённые статьи)
-function syncToSrcBlog(): void {
-  if (!fs.existsSync(SRC_BLOG_DIR)) {
-    fs.mkdirSync(SRC_BLOG_DIR, { recursive: true });
-  }
-
-  const index = getIndex();
-
-  // Всегда копируем/перезаписываем статьи из data/blog в src/data/blog
-  for (const entry of index) {
-    const src = path.join(BLOG_DIR, `${entry.slug}.json`);
-    const dest = path.join(SRC_BLOG_DIR, `${entry.slug}.json`);
-    if (fs.existsSync(src)) {
-      fs.writeFileSync(dest, fs.readFileSync(src));
-    }
-  }
-
-  // Синхронизируем index.json
-  const srcIndexPath = path.join(SRC_BLOG_DIR, 'index.json');
-  fs.writeFileSync(srcIndexPath, JSON.stringify(index, null, 2), 'utf-8');
-}
-
+// (больше не нужно — сайт читает напрямую из data/blog)
 export interface IndexEntry {
   slug: string;
 }
@@ -126,8 +105,6 @@ export function saveArticle(article: BlogArticle): void {
     saveIndex(index);
   }
 
-  // Синхронизируем с src/data/blog для сайта
-  syncToSrcBlog();
 }
 
 export function deleteArticle(slug: string): boolean {
@@ -138,19 +115,9 @@ export function deleteArticle(slug: string): boolean {
       fs.unlinkSync(filePath);
     }
 
-    // Удаляем из src/data/blog
-    const srcPath = path.join(SRC_BLOG_DIR, `${slug}.json`);
-    if (fs.existsSync(srcPath)) {
-      fs.unlinkSync(srcPath);
-    }
-
     // Remove from index
     const index = getIndex().filter(e => e.slug !== slug);
     saveIndex(index);
-
-    // Синхронизируем src/data/blog/index.json
-    const srcIndexPath = path.join(SRC_BLOG_DIR, 'index.json');
-    fs.writeFileSync(srcIndexPath, JSON.stringify(index, null, 2), 'utf-8');
 
     return true;
   } catch {

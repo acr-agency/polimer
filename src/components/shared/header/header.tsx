@@ -25,14 +25,14 @@ export default function Header(): JSX.Element {
   const [isProductMenuOpen, setIsProductMenuOpen] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const lastScrollY = useRef(0);
-  
+
   const links: NavLink[] = [
     { href: "/products", text: "Продукция" },
     { href: "/about-us", text: "О нас" },
     { href: "/contacts", text: "Контакты" },
     { href: "/sotrudnichestvo", text: "Условия сотрудничества" },
   ];
-  
+
   const lukProducts: Product[] = [
     {
       id: "6",
@@ -97,7 +97,7 @@ export default function Header(): JSX.Element {
       title: "Ливневый водоотвод",
     }
   ];
-  
+
   const colodecProd: Product[] = [
     {
       id: "1",
@@ -112,7 +112,7 @@ export default function Header(): JSX.Element {
 
   const closeMenu = (): void => setIsOpen(false);
   const toggleMenu = (): void => setIsOpen((v) => !v);
-  
+
   const toggleProductMenu = (e: React.MouseEvent): void => {
     e.preventDefault();
     if (!isMobile) {
@@ -132,7 +132,7 @@ export default function Header(): JSX.Element {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 1020);
     };
-    
+
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
@@ -193,6 +193,8 @@ export default function Header(): JSX.Element {
     if (href === "/products" && !isMobile) {
       e.preventDefault();
       toggleProductMenu(e);
+    } else {
+      setIsProductMenuOpen(false);
     }
   };
 
@@ -216,8 +218,8 @@ export default function Header(): JSX.Element {
               <ul className={s.headerLinkBox}>
                 {links.map((e, i) => (
                   <li key={i}>
-                    <LocalizedLink 
-                      className={s.headerLink} 
+                    <LocalizedLink
+                      className={s.headerLink}
                       href={e.href}
                       onClick={(event: any) => handleProductClick(event, e.href)}
                     >
@@ -281,9 +283,9 @@ export default function Header(): JSX.Element {
             <ul className={s.mobileLinks}>
               {links.map((e, i) => (
                 <li key={i}>
-                  <a 
-                    className={s.mobileLink} 
-                    href={e.href} 
+                  <a
+                    className={s.mobileLink}
+                    href={e.href}
                     onClick={(event) => {
                       if (e.href === "/products" && !isMobile) {
                         event.preventDefault();
@@ -353,7 +355,7 @@ export default function Header(): JSX.Element {
           </div>
         </aside>
       </header>
-      
+
       {/* ProductHeaderMenu отображается только на десктопе */}
       {!isMobile && isProductMenuOpen && (
         <ProductHeaderMenu onClose={closeProductMenu} />

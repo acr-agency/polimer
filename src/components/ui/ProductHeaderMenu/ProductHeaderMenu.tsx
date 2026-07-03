@@ -11,7 +11,7 @@ const itemLink = [
         "name": "Конус-люк",
         "subName": "",
         "slug": "konus-luk-lm",
-        "directions": ["1", "4", "5"]
+        "directions": ["1", "4", "5", "6"]
     },
     {
         "img": '/img/headerMenu/2.jpg',
@@ -164,9 +164,9 @@ export default function ProductHeaderMenu({ onClose }: ProductHeaderMenuProps) {
                 exit={{ y: -20, opacity: 0 }}
                 transition={{ duration: 0.3, delay: 0.1 }}
             >
-                <button className={s.closeButton} onClick={onClose}>
+                {/* <button className={s.closeButton} onClick={onClose}>
                     ✕
-                </button>
+                </button> */}
                 <div className={s.head}>
                     <motion.button
                         onClick={() => setActiveDirections('all')}

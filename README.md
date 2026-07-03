@@ -562,6 +562,9 @@ docker image prune -a
 # Полная очистка
 docker system prune -a --volumes
 ```
+docker compose down          # остановить
+docker compose build         # пересобрать образ
+docker compose up -d         # запустить (volume на месте — данные не потеряны)
 
 ---
 
