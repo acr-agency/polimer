@@ -195,7 +195,7 @@ const items = [
   return (
     <main>
       <HeroPages
-        fon='/img/fonsotrud.jpg'
+        fon='/img/fonSotrud.jpg'
         title='Условия сотрудничества, оплаты и доставки'
         h1='<span class="seryy">Условия сотрудничества,</span> <br/>  оплаты  и доставки'
       />

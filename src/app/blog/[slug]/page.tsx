@@ -4,23 +4,32 @@ import { Metadata } from 'next';
 import BlogHero from '@/components/section/blogPage/blogHero/blogHero';
 import BlogContent from '@/components/section/blogPage/BlogContent/BlogContent';
 
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
+// Включаем ISR
+export const revalidate = 3600;
+
 // Генерируем статические параметры для SSG
 export async function generateStaticParams() {
-  const articles = getAllBlogArticles();
-  
-  return articles.map((article) => ({
-    slug: article.slug,
-  }));
+  try {
+    const articles = await getAllBlogArticles();
+    return articles.map((article) => ({
+      slug: article.slug,
+    }));
+  } catch (error) {
+    console.error('⚠️  Error loading articles for static generation:', error);
+    return [];
+  }
 }
 
-// Генерируем метаданные для SEO
+// ⚠️ ИСПРАВЛЕНО: params должен быть Promise
 export async function generateMetadata({ 
   params 
 }: { 
   params: Promise<{ slug: string }> 
 }): Promise<Metadata> {
-  const { slug } = await params;
-  const article = getBlogArticleBySlug(slug);
+  const { slug } = await params; // ⬅️ Добавлен await
+  const article = await getBlogArticleBySlug(slug);
   
   if (!article) {
     return {
@@ -55,11 +64,12 @@ export async function generateMetadata({
       images: article.img ? [article.img] : undefined,
     },
     alternates: {
-      canonical: `https://люки.рф/blog/${article.slug}`,
+      canonical: `https://73полимер.рф/blog/${article.slug}`,
     },
   };
 }
 
+// ⚠️ ИСПРАВЛЕНО: убираем лишний await, params уже Promise
 export default async function BlogArticlePage({ 
   params 
 }: { 
@@ -67,23 +77,17 @@ export default async function BlogArticlePage({
 }) {
   const { slug } = await params;
   
-  const article = getBlogArticleBySlug(slug);
+  const article = await getBlogArticleBySlug(slug);
   
   if (!article) {
-    notFound(); // покажет 404 страницу
+    notFound();
   }
   
   return (
-    <main  style={{background:'var(--temnyy-1)'}}>
+    <main style={{background:'var(--temnyy-1)'}}>
       <BlogHero article={article} />
       <BlogContent content={article.content} />
-      {/* <RelatedArticles 
-        currentSlug={article.slug} 
-        category={article.category}
-        tags={article.tags}
-      /> */}
       
-      {/* JSON-LD разметка для SEO */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -97,20 +101,20 @@ export default async function BlogArticlePage({
             author: {
               '@type': 'Organization',
               name: 'Технологии люков',
-              url: 'https://люки.рф'
+              url: 'https://73полимер.рф'
             },
             publisher: {
               '@type': 'Organization',
               name: 'Технологии люков',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://люки.рф/logo.png'
+                url: 'https://73полимер.рф/logo.png'
               }
             },
             description: article.excerpt,
             mainEntityOfPage: {
               '@type': 'WebPage',
-              '@id': `https://люки.рф/blog/${article.slug}`
+              '@id': `https://73полимер.рф/blog/${article.slug}`
             }
           })
         }}

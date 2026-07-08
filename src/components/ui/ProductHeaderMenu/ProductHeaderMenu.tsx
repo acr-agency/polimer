@@ -2,7 +2,7 @@
 
 import { getAllDirections } from "@/lib/directions";
 import s from "./ProductHeaderMenu.module.scss";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 
 const itemLink = [
@@ -60,7 +60,7 @@ const itemLink = [
         "slug": "kolco-smotrovogo-kolodca",
         "directions": ["6"]
     }, {
-        "img": '/img/none.webp',
+        "img": '/img/products/dno-smotrovogo-kolodca/1.jpg',
         "name": "Дно колодца",
         "subName": "",
         "slug": "dno-smotrovogo-kolodca",
@@ -77,14 +77,14 @@ const itemLink = [
         "name": "Поребрик",
         "subName": "",
         "slug": "polimerpeschaniy-bordyur-porebrik",
-        "directions": ["8"]
+        "directions": ["7"]
     },
     {
         "img": '/img/headerMenu/11.jpg',
         "name": "Водоотвод",
         "subName": "",
         "slug": "polimerpeschaniy-livneviy-lotok",
-        "directions": ["9"]
+        "directions": ["7"]
     },
 ];
 
@@ -95,7 +95,9 @@ interface ProductHeaderMenuProps {
 
 export default function ProductHeaderMenu({ onClose }: ProductHeaderMenuProps) {
     const [activeDirections, setActiveDirections] = useState<string>('all');
+    const [isOpen, setIsOpen] = useState(true);
     const allDirections = getAllDirections();
+    const menuRef = useRef<HTMLDivElement>(null);
 
     // Фильтрация товаров
     const filteredItems = activeDirections === 'all'
@@ -141,12 +143,51 @@ export default function ProductHeaderMenu({ onClose }: ProductHeaderMenuProps) {
         }
     };
 
-    // Закрытие при клике на фон
+    // Закрытие при клике на оверлей (фон)
     const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        // Проверяем, что клик был именно по оверлею, а не по его содержимому
         if (e.target === e.currentTarget && onClose) {
             onClose();
         }
     };
+
+    // Закрытие по Escape
+    useEffect(() => {
+        const handleEscape = (e: KeyboardEvent) => {
+            if (e.key === 'Escape' && onClose) {
+                onClose();
+            }
+        };
+
+        document.addEventListener('keydown', handleEscape);
+        
+        // Блокируем скролл страницы при открытом меню
+        document.body.style.overflow = 'hidden';
+        
+        return () => {
+            document.removeEventListener('keydown', handleEscape);
+            document.body.style.overflow = 'unset';
+        };
+    }, [onClose]);
+
+    // Обработчик клика по документу для закрытия
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+                onClose?.();
+            }
+        };
+
+        // Добавляем обработчик с задержкой, чтобы не закрыть сразу при открытии
+        const timeoutId = setTimeout(() => {
+            document.addEventListener('mousedown', handleClickOutside);
+        }, 100);
+
+        return () => {
+            clearTimeout(timeoutId);
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [onClose]);
 
     return (
         <motion.div 
@@ -158,15 +199,14 @@ export default function ProductHeaderMenu({ onClose }: ProductHeaderMenuProps) {
             onClick={handleOverlayClick}
         >
             <motion.div 
+                ref={menuRef}
                 className={s.budy}
                 initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: -20, opacity: 0 }}
                 transition={{ duration: 0.3, delay: 0.1 }}
+                onClick={(e) => e.stopPropagation()} // Предотвращаем всплытие
             >
-                {/* <button className={s.closeButton} onClick={onClose}>
-                    ✕
-                </button> */}
                 <div className={s.head}>
                     <motion.button
                         onClick={() => setActiveDirections('all')}

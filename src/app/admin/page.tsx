@@ -18,6 +18,8 @@ export default function AdminDashboard() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
   const [togglingSlug, setTogglingSlug] = useState<string | null>(null);
+  const [migrating, setMigrating] = useState(false);
+  const [migrateMsg, setMigrateMsg] = useState('');
 
   async function loadArticles() {
     try {
@@ -46,7 +48,6 @@ export default function AdminDashboard() {
 
   async function handleDelete(slug: string) {
     if (!confirm('Удалить статью? Это действие необратимо.')) return;
-
     try {
       const res = await fetch(`/api/admin/blog/${slug}`, { method: 'DELETE' });
       if (res.ok) {
@@ -120,6 +121,64 @@ export default function AdminDashboard() {
         </div>
       </header>
 
+      {/* Панель миграции JSON → БД */}
+      <div style={{
+        maxWidth: '1200px',
+        margin: '16px auto',
+        padding: '0 24px',
+      }}>
+        <div style={{
+          background: '#16213e',
+          border: '1px solid #0f3460',
+          borderRadius: '8px',
+          padding: '12px 16px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px',
+          flexWrap: 'wrap',
+        }}>
+          <span style={{ fontSize: '13px', color: '#aaa' }}>
+            📦 Перенос статей из JSON в PostgreSQL:
+          </span>
+          <button
+            onClick={async () => {
+              setMigrating(true);
+              setMigrateMsg('');
+              try {
+                const res = await fetch('/api/admin/blog/migrate', { method: 'POST' });
+                const data = await res.json();
+                setMigrateMsg(data.message || data.error || 'Готово');
+                if (res.ok) loadArticles();
+              } catch {
+                setMigrateMsg('Ошибка соединения');
+              } finally {
+                setMigrating(false);
+              }
+            }}
+            disabled={migrating}
+            style={{
+              padding: '6px 14px',
+              background: migrating ? '#555' : '#e94560',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: migrating ? 'not-allowed' : 'pointer',
+              fontSize: '13px',
+            }}
+          >
+            {migrating ? 'Миграция...' : '🔄 Импорт JSON → БД'}
+          </button>
+          {migrateMsg && (
+            <span style={{
+              fontSize: '12px',
+              color: migrateMsg.includes('ошибка') || migrateMsg.includes('Failed') ? '#ff6b6b' : '#4ade80',
+            }}>
+              {migrateMsg}
+            </span>
+          )}
+        </div>
+      </div>
+
       <main style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
         {loading ? (
           <p style={{ textAlign: 'center', color: '#888' }}>Загрузка...</p>
@@ -168,7 +227,7 @@ export default function AdminDashboard() {
                       <button
                         onClick={() => togglePublished(article.slug, article.published !== false)}
                         disabled={togglingSlug === article.slug}
-                        title={article.published !== false ? 'Опубликована — нажмите чтобы скрыть' : 'Скрыта — нажмите чтобы опубликовать'}
+                        title={article.published !== false ? 'Опубликована' : 'Скрыта'}
                         style={{
                           padding: '4px 10px',
                           borderRadius: '12px',
@@ -177,15 +236,9 @@ export default function AdminDashboard() {
                           cursor: togglingSlug === article.slug ? 'wait' : 'pointer',
                           background: article.published !== false ? '#4ade80' : '#555',
                           color: article.published !== false ? '#000' : '#ccc',
-                          transition: 'all 0.2s',
                         }}
                       >
-                        {togglingSlug === article.slug
-                          ? '...'
-                          : article.published !== false
-                            ? '✓ Опубликовано'
-                            : '— Скрыто'
-                        }
+                        {togglingSlug === article.slug ? '...' : article.published !== false ? '✓ Опубликовано' : '— Скрыто'}
                       </button>
                     </td>
                     <td style={{ padding: '12px 16px', fontSize: '14px', color: '#aaa' }}>{article.category || '-'}</td>

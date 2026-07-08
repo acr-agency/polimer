@@ -3,7 +3,7 @@ import { getLatestArticles } from '@/lib/blog';
 
 export async function GET() {
   try {
-    const articles = getLatestArticles(10);
+    const articles = await getLatestArticles(10);
     return NextResponse.json(articles);
   } catch {
     return NextResponse.json([]);

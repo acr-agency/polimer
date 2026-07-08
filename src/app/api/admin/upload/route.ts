@@ -3,7 +3,9 @@ import { requireAuth } from '@/lib/admin-auth';
 import fs from 'fs';
 import path from 'path';
 
-const UPLOAD_DIR = path.join(process.cwd(), 'data/uploads/blog');
+// Сохраняем в public/uploads/blog — Next.js раздаёт статику напрямую
+// URL: /uploads/blog/имя_файла.jpg
+const UPLOAD_DIR = path.join(process.cwd(), 'public/uploads/blog');
 
 // Разрешённые типы файлов
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/svg+xml'];
@@ -54,8 +56,8 @@ export async function POST(request: NextRequest) {
     const buffer = Buffer.from(await file.arrayBuffer());
     fs.writeFileSync(filePath, buffer);
 
-    // URL для доступа к файлу через API
-    const url = `/api/admin/uploads/${fileName}`;
+    // URL — прямая ссылка на статику (Next.js раздаёт из public/)
+    const url = `/uploads/blog/${fileName}`;
 
     return NextResponse.json({
       success: true,

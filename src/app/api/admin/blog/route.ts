@@ -1,15 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { requireAuth } from '@/lib/admin-auth';
-import { getAllArticles, saveArticle, getNextId, generateSlug, ensureDataDir } from '@/lib/admin-blog';
+import { migrate, getAllArticles, createArticle, generateSlug } from '@/lib/blog-db';
 import { BlogArticle } from '@/types/blog';
 
 export async function GET() {
-  ensureDataDir();
   const authError = await requireAuth();
   if (authError) return authError;
 
   try {
-    const articles = getAllArticles();
+    await migrate();
+    const articles = await getAllArticles();
     return NextResponse.json(articles);
   } catch {
     return NextResponse.json(
@@ -20,11 +20,11 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
-  ensureDataDir();
   const authError = await requireAuth();
   if (authError) return authError;
 
   try {
+    await migrate();
     const body = await request.json();
     const { title, slug, excerpt, category, tags, readingTime, content, img, hero } = body;
 
@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
     const dateStr = `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')}.${now.getFullYear()}`;
 
     const article: BlogArticle = {
-      id: getNextId(),
+      id: 0,
       slug: articleSlug,
       title,
       img: img || '',
@@ -51,12 +51,12 @@ export async function POST(request: NextRequest) {
       tags: tags || [],
       readingTime: readingTime || 5,
       content,
-      published: true, // по умолчанию опубликовано
+      published: true,
     };
 
-    saveArticle(article);
+    const created = await createArticle(article);
 
-    return NextResponse.json({ success: true, slug: articleSlug });
+    return NextResponse.json({ success: true, slug: created.slug });
   } catch (error) {
     console.error('Error creating article:', error);
     return NextResponse.json(

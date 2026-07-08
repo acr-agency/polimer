@@ -46,9 +46,18 @@
 }
 
 /* ====== 1200 ====== */
+@media (max-width: 1600px) {
+    .heroContent {
+        padding: 60px 20px 100px;
+    }
+
+}
+
+
+/* ====== 1200 ====== */
 @media (max-width: 1200px) {
     .heroContent {
-        padding: 56px 0 90px;
+        padding: 56px 20px 90px;
     }
 
     .heroContentText {

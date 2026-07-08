@@ -1,0 +1,30 @@
+{
+  "tabs": [
+    
+    {
+      "id": 1,
+      "title": "инструкция по монтажу и характеристика",
+      "content": {
+        "kind": "instruct_characteristics",
+        "leftTitle": "Инструкция по монтажу:",
+        "instructSrc":"/img/instruct/kolodec.jpg",
+        "instructPdf":"/docs/instruct/монтаж_полимерпесчаного_колодца.pdf",
+        "rightTitle": "ХАРАКТЕРИСТИКА:",
+        "characteristics": [
+          {
+            "label": "Диаметр стенок наружный",
+            "value": "1064мм"
+          },
+          {
+            "label": "Высота днища",
+            "value": "25мм"
+          },
+          {
+            "label": "Вес днища",
+            "value": "26кг"
+          }
+        ]
+      }
+    }
+  ]
+}

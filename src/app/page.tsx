@@ -26,8 +26,8 @@ const SectionFallback = () => (
   </div>
 );
 
-export default function Home() {
-  const blogArticles = getLatestArticles(6);
+export default async function Home() {
+  const blogArticles = await getLatestArticles(6);
 
   const blogMock = blogArticles.map(article => ({
     id: article.id,

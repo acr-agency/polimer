@@ -3,8 +3,8 @@ import s from "./style.module.css";
 import CardBlog from "@/components/ui/CardBlog/CardBlog";
 
 
-export default function BlogList() {
-    const blogArticles = getLatestArticles(6);
+export default async function BlogList() {
+    const blogArticles = await getLatestArticles(6);
 
     // Преобразуем данные из нашей структуры в формат, который ожидает компонент Interesting
     const blogMock = blogArticles.map(article => ({

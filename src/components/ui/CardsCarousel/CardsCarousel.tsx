@@ -22,6 +22,7 @@ export type CardsCarouselProps<T> = {
   className?: string;
   perView?: number;
   gap?: number;
+  mobilePerView?: number; // Добавляем возможность указать сколько показывать на мобилке
 };
 
 type CardsCarouselComponent = <T>(
@@ -29,11 +30,34 @@ type CardsCarouselComponent = <T>(
 ) => JSX.Element;
 
 export const CardsCarousel = forwardRef(function CardsCarouselInner<T>(
-  { items, renderItem, className = "", perView = 3, gap = 18 }: CardsCarouselProps<T>,
+  { 
+    items, 
+    renderItem, 
+    className = "", 
+    perView = 3, 
+    gap = 18,
+    mobilePerView = 1 // По умолчанию 1 на мобилке
+  }: CardsCarouselProps<T>,
   ref: React.Ref<CarouselHandle>
 ) {
   const viewportRef = useRef<HTMLDivElement | null>(null);
   const [active, setActive] = useState(0);
+  const [currentPerView, setCurrentPerView] = useState(perView);
+
+  // Определяем сколько элементов показывать в зависимости от ширины экрана
+  useEffect(() => {
+    const updatePerView = () => {
+      if (window.innerWidth < 768) { // или используйте ваш брейкпоинт
+        setCurrentPerView(mobilePerView);
+      } else {
+        setCurrentPerView(perView);
+      }
+    };
+
+    updatePerView();
+    window.addEventListener('resize', updatePerView);
+    return () => window.removeEventListener('resize', updatePerView);
+  }, [perView, mobilePerView]);
 
   const getStep = (): number => {
     const viewport = viewportRef.current;
@@ -63,13 +87,14 @@ export const CardsCarousel = forwardRef(function CardsCarouselInner<T>(
   };
 
   const next = (): void => {
-    const maxIdx = Math.max(0, items.length - perView);
+    // Используем currentPerView вместо perView
+    const maxIdx = Math.max(0, items.length - currentPerView);
     const nextIdx = Math.min(maxIdx, active + 1);
     setActive(nextIdx);
     scrollToIndex(nextIdx);
   };
 
-  useImperativeHandle(ref, () => ({ prev, next }), [active, items.length, perView]);
+  useImperativeHandle(ref, () => ({ prev, next }), [active, items.length, currentPerView]);
 
   useEffect(() => {
     const viewport = viewportRef.current;
@@ -81,7 +106,10 @@ export const CardsCarousel = forwardRef(function CardsCarouselInner<T>(
       raf = requestAnimationFrame(() => {
         const step = getStep();
         if (!step) return;
-        setActive(Math.round(viewport.scrollLeft / step));
+        const newActive = Math.round(viewport.scrollLeft / step);
+        // Ограничиваем активный индекс
+        const maxIdx = Math.max(0, items.length - currentPerView);
+        setActive(Math.min(newActive, maxIdx));
       });
     };
 
@@ -90,13 +118,15 @@ export const CardsCarousel = forwardRef(function CardsCarouselInner<T>(
       viewport.removeEventListener("scroll", onScroll);
       cancelAnimationFrame(raf);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [items.length, currentPerView]);
 
   return (
     <div
       className={`${s.root} ${className}`}
-      style={{ ["--gap" as any]: `${gap}px`, ["--perView" as any]: perView }}
+      style={{ 
+        ["--gap" as any]: `${gap}px`, 
+        ["--perView" as any]: currentPerView 
+      }}
     >
       <div ref={viewportRef} className={s.viewport}>
         <div className={s.track}>

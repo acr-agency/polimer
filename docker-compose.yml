@@ -1,6 +1,23 @@
 version: '3.8'
 
 services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: polimer
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
   app:
     build:
       context: .
@@ -9,13 +26,20 @@ services:
       - "3000:3000"
     env_file:
       - .env
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: polimer
+      DB_USER: polimer_user
+      DB_PASSWORD: polimer_user2521535
     volumes:
-      # Персистентное хранилище для статей блога
-      - blog_data:/app/data/blog
-      # Персистентное хранилище для загруженных изображений
-      - uploads_data:/app/data/uploads
+      # Персистентное хранилище для загруженных изображений (через public/)
+      - uploads_data:/app/public/uploads
+    depends_on:
+      db:
+        condition: service_healthy
     restart: unless-stopped
 
 volumes:
-  blog_data:
+  pg_data:
   uploads_data:

@@ -7,6 +7,7 @@ import { JSX, useEffect, useRef, useState } from "react";
 import ChatPopup from "@/components/ui/ChatPopup/ChatPopup";
 import { LocalizedLink } from "@/components/ui/LocalizedLink";
 import ProductHeaderMenu from "@/components/ui/ProductHeaderMenu/ProductHeaderMenu";
+import { usePathname } from "next/navigation";
 
 type NavLink = {
   href: string;
@@ -25,6 +26,7 @@ export default function Header(): JSX.Element {
   const [isProductMenuOpen, setIsProductMenuOpen] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const lastScrollY = useRef(0);
+  const pathname = usePathname();
 
   const links: NavLink[] = [
     { href: "/products", text: "Продукция" },
@@ -117,15 +119,25 @@ export default function Header(): JSX.Element {
     e.preventDefault();
     if (!isMobile) {
       setIsProductMenuOpen((v) => !v);
-      // Закрываем мобильное меню если открыто
       if (isOpen) closeMenu();
     } else {
-      // На мобильных устройствах переходим по ссылке
       window.location.href = "/products";
     }
   };
 
   const closeProductMenu = (): void => setIsProductMenuOpen(false);
+
+  // Проверка активной ссылки
+  const isActiveLink = (href: string): boolean => {
+    if (href === "/") {
+      return pathname === "/";
+    }
+    // Для продуктов проверяем, начинается ли путь с /products
+    if (href === "/products") {
+      return pathname.startsWith("/products");
+    }
+    return pathname === href;
+  };
 
   // Проверка ширины экрана
   useEffect(() => {
@@ -204,9 +216,10 @@ export default function Header(): JSX.Element {
         className={`${s.header} ${isHidden ? s.headerHidden : ""} ${isOpen ? s.headerMenuOpen : ""}`}
       >
         <div className={"container " + s.headerContent}>
-          <div className={s.left}>
-            <LocalizedLink href="/" className={s.headerLogo + " flex-center"}>
+          <div  className={s.left}>
+            <LocalizedLink href="/"    className={s.headerLogo + " flex-center"}>
               <Image
+             
                 src="/logo.png"
                 alt='Логотип ООО "Полимерные Технологии"'
                 width={176}
@@ -216,17 +229,20 @@ export default function Header(): JSX.Element {
 
             <nav className={s.navDesktop}>
               <ul className={s.headerLinkBox}>
-                {links.map((e, i) => (
-                  <li key={i}>
-                    <LocalizedLink
-                      className={s.headerLink}
-                      href={e.href}
-                      onClick={(event: any) => handleProductClick(event, e.href)}
-                    >
-                      {e.text}
-                    </LocalizedLink>
-                  </li>
-                ))}
+                {links.map((e, i) => {
+                  const active = isActiveLink(e.href);
+                  return (
+                    <li key={i}>
+                      <LocalizedLink
+                        className={`${s.headerLink} ${active ? s.active : ""}`}
+                        href={e.href}
+                        onClick={(event: any) => handleProductClick(event, e.href)}
+                      >
+                        {e.text}
+                      </LocalizedLink>
+                    </li>
+                  );
+                })}
               </ul>
             </nav>
           </div>
@@ -281,52 +297,67 @@ export default function Header(): JSX.Element {
         >
           <nav className={s.navMobile}>
             <ul className={s.mobileLinks}>
-              {links.map((e, i) => (
-                <li key={i}>
-                  <a
-                    className={s.mobileLink}
-                    href={e.href}
-                    onClick={(event) => {
-                      if (e.href === "/products" && !isMobile) {
-                        event.preventDefault();
-                        toggleProductMenu(event);
-                        closeMenu();
-                      } else {
-                        closeMenu();
-                      }
-                    }}
-                  >
-                    {e.text}
-                  </a>
-                  {e.href === "/products" && isMobile && (
-                    <ul key={`ul-${i}`} className={s.mobileSubLinks}>
-                      {lukProducts.map((luc, idx) => (
-                        <li key={`lukProducts-${idx}`}>
-                          <a className={s.mobileSubLink} href={`/products/${luc.slug}`} onClick={closeMenu}>
-                            {luc.title}
-                          </a>
-                        </li>
-                      ))}
-                      <br />
-                      {terProd.map((luc, idx) => (
-                        <li key={`terProd-${idx}`}>
-                          <a className={s.mobileSubLink} href={`/products/${luc.slug}`} onClick={closeMenu}>
-                            {luc.title}
-                          </a>
-                        </li>
-                      ))}
-                      <br />
-                      {colodecProd.map((luc, idx) => (
-                        <li key={`colodecProd-${idx}`}>
-                          <a className={s.mobileSubLink} href={`/products/${luc.slug}`} onClick={closeMenu}>
-                            {luc.title}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </li>
-              ))}
+              {links.map((e, i) => {
+                const active = isActiveLink(e.href);
+                return (
+                  <li key={i}>
+                    <a
+                      className={`${s.mobileLink} ${active ? s.activeMobile : ""}`}
+                      href={e.href}
+                      onClick={(event) => {
+                        if (e.href === "/products" && !isMobile) {
+                          event.preventDefault();
+                          toggleProductMenu(event);
+                          closeMenu();
+                        } else {
+                          closeMenu();
+                        }
+                      }}
+                    >
+                      {e.text}
+                    </a>
+                    {e.href === "/products" && isMobile && (
+                      <ul key={`ul-${i}`} className={s.mobileSubLinks}>
+                        {lukProducts.map((luc, idx) => (
+                          <li key={`lukProducts-${idx}`}>
+                            <a 
+                              className={`${s.mobileSubLink} ${pathname === `/products/${luc.slug}` ? s.activeMobileSub : ""}`} 
+                              href={`/products/${luc.slug}`} 
+                              onClick={closeMenu}
+                            >
+                              {luc.title}
+                            </a>
+                          </li>
+                        ))}
+                        <br />
+                        {terProd.map((luc, idx) => (
+                          <li key={`terProd-${idx}`}>
+                            <a 
+                              className={`${s.mobileSubLink} ${pathname === `/products/${luc.slug}` ? s.activeMobileSub : ""}`} 
+                              href={`/products/${luc.slug}`} 
+                              onClick={closeMenu}
+                            >
+                              {luc.title}
+                            </a>
+                          </li>
+                        ))}
+                        <br />
+                        {colodecProd.map((luc, idx) => (
+                          <li key={`colodecProd-${idx}`}>
+                            <a 
+                              className={`${s.mobileSubLink} ${pathname === `/products/${luc.slug}` ? s.activeMobileSub : ""}`} 
+                              href={`/products/${luc.slug}`} 
+                              onClick={closeMenu}
+                            >
+                              {luc.title}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </nav>
 
