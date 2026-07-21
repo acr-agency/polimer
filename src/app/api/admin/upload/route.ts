@@ -3,9 +3,9 @@ import { requireAuth } from '@/lib/admin-auth';
 import fs from 'fs';
 import path from 'path';
 
-// Сохраняем в public/uploads/blog — Next.js раздаёт статику напрямую
-// URL: /uploads/blog/имя_файла.jpg
-const UPLOAD_DIR = path.join(process.cwd(), 'public/uploads/blog');
+// Сохраняем в data/uploads/blog (Docker volume — сохраняется между перезапусками)
+// Раздаём через /uploads/blog/имя_файла (роут src/app/uploads/blog/[filename]/route.ts)
+const UPLOAD_DIR = path.join(process.cwd(), 'data/uploads/blog');
 
 // Разрешённые типы файлов
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/svg+xml'];

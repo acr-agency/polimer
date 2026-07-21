@@ -33,8 +33,8 @@ services:
       DB_USER: polimer_user
       DB_PASSWORD: polimer_user2521535
     volumes:
-      # Персистентное хранилище для загруженных изображений (через public/)
-      - uploads_data:/app/public/uploads
+      # Персистентное хранилище для загруженных изображений
+      - uploads_data:/app/data/uploads
     depends_on:
       db:
         condition: service_healthy

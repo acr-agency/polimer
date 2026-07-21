@@ -13,8 +13,9 @@ import s from "./CardsCarousel.module.css";
 export type CarouselHandle = {
   prev: () => void;
   next: () => void;
+  canPrev: () => boolean;
+  canNext: () => boolean;
 };
-
 export type CardsCarouselProps<T> = {
   items: T[];
   renderItem: (item: T, index: number) => React.ReactNode;
@@ -36,7 +37,7 @@ export const CardsCarousel = forwardRef(function CardsCarouselInner<T>(
     className = "", 
     perView = 3, 
     gap = 18,
-    mobilePerView = 1 // По умолчанию 1 на мобилке
+    mobilePerView = 1
   }: CardsCarouselProps<T>,
   ref: React.Ref<CarouselHandle>
 ) {
@@ -47,7 +48,7 @@ export const CardsCarousel = forwardRef(function CardsCarouselInner<T>(
   // Определяем сколько элементов показывать в зависимости от ширины экрана
   useEffect(() => {
     const updatePerView = () => {
-      if (window.innerWidth < 768) { // или используйте ваш брейкпоинт
+      if (window.innerWidth < 768) {
         setCurrentPerView(mobilePerView);
       } else {
         setCurrentPerView(perView);
@@ -80,6 +81,10 @@ export const CardsCarousel = forwardRef(function CardsCarouselInner<T>(
     viewport.scrollTo({ left: step * idx, behavior: "smooth" });
   };
 
+  const getMaxIndex = (): number => {
+    return Math.max(0, items.length - currentPerView);
+  };
+
   const prev = (): void => {
     const nextIdx = Math.max(0, active - 1);
     setActive(nextIdx);
@@ -87,38 +92,26 @@ export const CardsCarousel = forwardRef(function CardsCarouselInner<T>(
   };
 
   const next = (): void => {
-    // Используем currentPerView вместо perView
-    const maxIdx = Math.max(0, items.length - currentPerView);
+    const maxIdx = getMaxIndex();
     const nextIdx = Math.min(maxIdx, active + 1);
     setActive(nextIdx);
     scrollToIndex(nextIdx);
   };
 
-  useImperativeHandle(ref, () => ({ prev, next }), [active, items.length, currentPerView]);
+  const canPrev = (): boolean => {
+    return active > 0;
+  };
 
-  useEffect(() => {
-    const viewport = viewportRef.current;
-    if (!viewport) return;
+  const canNext = (): boolean => {
+    return active < getMaxIndex();
+  };
 
-    let raf = 0;
-    const onScroll = (): void => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const step = getStep();
-        if (!step) return;
-        const newActive = Math.round(viewport.scrollLeft / step);
-        // Ограничиваем активный индекс
-        const maxIdx = Math.max(0, items.length - currentPerView);
-        setActive(Math.min(newActive, maxIdx));
-      });
-    };
-
-    viewport.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      viewport.removeEventListener("scroll", onScroll);
-      cancelAnimationFrame(raf);
-    };
-  }, [items.length, currentPerView]);
+  useImperativeHandle(ref, () => ({ 
+    prev, 
+    next, 
+    canPrev, 
+    canNext 
+  }), [active, items.length, currentPerView]);
 
   return (
     <div
