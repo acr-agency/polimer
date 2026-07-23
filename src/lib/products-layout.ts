@@ -29,8 +29,9 @@ export const productsLayout: Record<number, CategoryLayout> = {
   },
 
   3: {
-    "kolco-smotrovogo-kolodca": { x: 1, y: 1, w: 3, h: 1 },
-    "dno-smotrovogo-kolodca": { x: 4, y: 1, w: 3, h: 1 },
+    "kolco-smotrovogo-kolodca": { x: 1, y: 1, w: 2, h: 1 },
+    "dno-smotrovogo-kolodca": { x: 3, y: 1, w: 2, h: 1 },
+    "konus-luk-lm": { x: 5, y: 1, w: 2, h: 1 },
   },
 };
 

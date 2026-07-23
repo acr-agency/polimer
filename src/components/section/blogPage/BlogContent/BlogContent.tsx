@@ -81,6 +81,20 @@ export default function BlogContent({ content }: BlogContentProps) {
                                     </blockquote>
                                 );
 
+                            case 'link':
+                                return (
+                                    <p key={index} className={s.link}>
+                                        <a
+                                            href={block.href}
+                                            target={block.target || '_blank'}
+                                            rel="nofollow noopener noreferrer"
+                                            className={s.linkAnchor}
+                                        >
+                                            {block.text}
+                                        </a>
+                                    </p>
+                                );
+
                             case 'warning':
                                 return (
                                     <div key={index} className={s.warning}>

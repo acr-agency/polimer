@@ -32,6 +32,11 @@ ENV HOSTNAME=0.0.0.0
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nextjs
 
+# Создаём папки для персистентных данных и даём права пользователю
+# Это нужно для bind mount — чтобы nextjs мог писать в подмонтированные папки
+RUN mkdir -p /app/data/blog /app/data/uploads/blog && \
+    chown -R nextjs:nodejs /app/data
+
 # Копируем только собранный standalone билд
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 # Копируем статику (важно: standalone ее не копирует автоматически)

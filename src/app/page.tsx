@@ -1,6 +1,6 @@
 import { lazy, Suspense } from "react";
 import Hero from "@/components/section/hero/hero";
-import { getLatestArticles } from "@/lib/blog";
+import { getBlogCards } from "@/lib/blog";
 import Profitable from "@/components/section/Profitable/Profitable";
 import Faq from "@/components/section/faq/Faq";
 
@@ -27,7 +27,7 @@ const SectionFallback = () => (
 );
 
 export default async function Home() {
-  const blogArticles = await getLatestArticles(6);
+  const blogArticles = await getBlogCards();
 
   const blogMock = blogArticles.map(article => ({
     id: article.id,

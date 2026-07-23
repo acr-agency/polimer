@@ -287,4 +287,30 @@ ol.list .listItem::marker {
   .caption {
     font-size: 12px;
   }
+
+  .linkAnchor {
+    font-size: 14px;
+  }
+}
+
+/* ---------- Link ---------- */
+.link {
+  margin: 0;
+}
+
+.linkAnchor {
+  display: inline-block;
+  padding: 12px 24px;
+  background: var(--krasnyy-1);
+  color: var(--belyy);
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.linkAnchor:hover {
+  background: var(--krasnyy-2);
+  transform: translateY(-1px);
 }

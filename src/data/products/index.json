@@ -66,9 +66,20 @@
     "titleFull": "для установки на бетонные кольца ",
     "description": " (ПОЛИМЕРНО-ПЕСЧАНЫЙ КОНУС-ЛЮК)",
     "priceRub": 2100,
+    "categoryId": 3,
+    "img": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/6.webp",
+    "imgMob": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/1.webp"
+  },
+  {
+    "id": "konus-luk-lm",
+    "slug": "konus-luk-lm",
+    "titleShort": " КОНУС-ЛЮК",
+    "titleFull": "для установки на бетонные кольца ",
+    "description": " (ПОЛИМЕРНО-ПЕСЧАНЫЙ КОНУС-ЛЮК)",
+    "priceRub": 2100,
     "categoryId": 1,
     "img": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/5.webp",
-    "imgMob": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/1.webp"
+    "imgMob": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/6.webp"
   },
   {
     "id": "luk-c-logotipom",

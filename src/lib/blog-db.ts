@@ -177,13 +177,12 @@ export async function getBlogCards(): Promise<BlogCardData[]> {
   return result.rows.map(rowToCard);
 }
 
-export async function getLatestArticles(limit: number = 6): Promise<BlogCardData[]> {
+export async function getLatestArticles(): Promise<BlogCardData[]> {
   const result = await safeQuery(
     `SELECT id, slug, title, img, hero, date, excerpt
      FROM blog_articles WHERE published = true
-     ORDER BY to_date(date, 'DD.MM.YYYY') DESC NULLS LAST, id DESC
-     LIMIT $1`,
-    [limit]
+     ORDER BY to_date(date, 'DD.MM.YYYY') DESC NULLS LAST, id DESC`,
+    
   );
   return result.rows.map(rowToCard);
 }

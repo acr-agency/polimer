@@ -40,6 +40,7 @@ function getDefaultContentItem(type: BlogContentItem['type']): BlogContentItem {
     case 'image': return { type: 'image', src: '', alt: '', caption: '' };
     case 'quote': return { type: 'quote', text: '', author: '' };
     case 'warning': return { type: 'warning', text: '' };
+    case 'link': return { type: 'link', text: '', href: '', target: '_blank' };
     default: return { type: 'paragraph', text: '' };
   }
 }
@@ -218,6 +219,7 @@ export default function ArticleEditor({ editSlug }: { editSlug?: string }) {
     image: 'Изображение',
     quote: 'Цитата',
     warning: 'Предупреждение',
+    link: 'Ссылка',
   };
 
   return (
@@ -529,7 +531,7 @@ export default function ArticleEditor({ editSlug }: { editSlug?: string }) {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
             <h2 style={{ fontSize: '18px', margin: 0, color: '#fff' }}>Содержание статьи</h2>
             <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-              {(['heading', 'paragraph', 'list', 'image', 'quote', 'warning'] as const).map(type => (
+              {(['heading', 'paragraph', 'list', 'image', 'quote', 'warning', 'link'] as const).map(type => (
                 <button
                   key={type}
                   type="button"
@@ -847,6 +849,51 @@ export default function ArticleEditor({ editSlug }: { editSlug?: string }) {
                     }}
                     placeholder="Автор (опционально)"
                   />
+                </div>
+              )}
+
+              {item.type === 'link' && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <input
+                    type="text"
+                    value={item.text}
+                    onChange={e => updateContentItem(index, { text: e.target.value })}
+                    style={{
+                      width: '100%',
+                      padding: '10px',
+                      border: '1px solid #333',
+                      borderRadius: '4px',
+                      background: '#0f3460',
+                      color: '#fff',
+                      fontSize: '14px',
+                      boxSizing: 'border-box',
+                    }}
+                    placeholder="Текст ссылки (например: Подробнее на сайте)"
+                  />
+                  <input
+                    type="url"
+                    value={item.href}
+                    onChange={e => updateContentItem(index, { href: e.target.value })}
+                    style={{
+                      width: '100%',
+                      padding: '10px',
+                      border: '1px solid #333',
+                      borderRadius: '4px',
+                      background: '#0f3460',
+                      color: '#fff',
+                      fontSize: '14px',
+                      boxSizing: 'border-box',
+                    }}
+                    placeholder="URL (например: https://example.com/page)"
+                  />
+                  <label style={{ color: '#aaa', fontSize: '13px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <input
+                      type="checkbox"
+                      checked={item.target === '_self'}
+                      onChange={e => updateContentItem(index, { target: e.target.checked ? '_self' : '_blank' })}
+                    />
+                    Открывать в той же вкладке (_self)
+                  </label>
                 </div>
               )}
 

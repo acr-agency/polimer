@@ -41,8 +41,8 @@ export async function getRelatedArticles(slug: string, limit: number = 3): Promi
 }
 
 // Получить последние статьи
-export async function getLatestArticles(limit: number = 6): Promise<BlogCardData[]> {
-  return dbGetLatest(limit);
+export async function getLatestArticles(): Promise<BlogCardData[]> {
+  return dbGetLatest();
 }
 
 // Поиск по статьям

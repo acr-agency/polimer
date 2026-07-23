@@ -9,11 +9,12 @@ import {
 } from "@/components/ui/CardsCarousel/CardsCarousel";
 import CardBlog from "@/components/ui/CardBlog/CardBlog";
 import { BlogCardData } from "@/types/blog";
+import Link from "next/link";
 
 export default function Interesting({ items }: { items: BlogCardData[] }) {
   const carouselRef = useRef<CarouselHandle | null>(null);
   const [canPrev, setCanPrev] = useState(false);
-  const [canNext, setCanNext] = useState(true);
+  const [canNext, setCanNext] = useState(false);
 
   // Обновляем состояние кнопок при изменении активного слайда
   const updateButtonsState = () => {
@@ -43,7 +44,7 @@ export default function Interesting({ items }: { items: BlogCardData[] }) {
     <section className={s.Interesting}>
       <div className="container">
         <div className={s.InterestingHeader}>
-          <h2 className="h2">Полезные статьи</h2>
+          <h2 className={`h2 + ${s.InterestingTitile}`}><Link href={'/blog'}>Полезные статьи</Link></h2>
 
           <SliderArrows
             onPrev={handlePrev}
