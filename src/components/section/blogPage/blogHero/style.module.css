@@ -4,6 +4,7 @@
 
     display: flex;
     flex-direction: column;
+    padding-top: 70px;
 
     position: relative;
 }
@@ -41,7 +42,7 @@
 
 }
 
-.title{
+.title {
     max-width: 670px;
 }
 
@@ -84,6 +85,7 @@
     .hero {
         min-height: 80vh;
         min-height: 80svh;
+        padding-top: 0;
     }
 
     .heroContent {
@@ -97,7 +99,7 @@
 
 
     .hero :global([aria-label="Хлебные крошки"]) {
-    padding-top: 80px;
-    background: linear-gradient(324deg, #00000000 16%, #00000096 73%);
-  }
+        padding-top: 80px;
+        background: linear-gradient(324deg, #00000000 16%, #00000096 73%);
+    }
 }

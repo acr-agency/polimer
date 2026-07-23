@@ -11,7 +11,7 @@ export default function BlogHero({ article }: BlogHeroProps) {
 
     return (
         <section style={{ background: `url(${article?.hero ? article.hero : article.img}) center / cover no-repeat` }} className={s.hero}>
-            <BreadCrumbs items={[{ title: 'Блог', href: "/blog" }, { title: article.title }]} />
+            <BreadCrumbs items={[{ title: 'Полезные статьи', href: "/blog" }, { title: article.title }]} />
 
             <div className={'container ' + s.heroContent}>
 
