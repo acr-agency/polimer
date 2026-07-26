@@ -9,6 +9,7 @@ import { getSiteContext } from "@/lib/getSiteContext";
 import YandexMetrikaParams from "@/components/YandexMetrikaParams";
 import { CookieConsent } from "@/components/shared/CookieConsent/CookieConsent";
 import { inter, montserrat, russoOne } from './fonts';
+import ScrollToTopWrapper from '@/components/shared/ScrollToTop/ScrollToTopWrapper';
 import { CityProvider } from "@/components/providers/CityProvider";
 import GeoDetector from "@/components/providers/GeoDetector";
 
@@ -78,6 +79,7 @@ export default async function RootLayout({
             {children}
             <Footer />
             <CookieConsent />
+            <ScrollToTopWrapper />
           </ModalProvider></CityProvider>
       </body>
     </html>
